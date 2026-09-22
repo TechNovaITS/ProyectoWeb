@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-
+use App\Models\Departamento;
 class DepartamentosSeeder extends Seeder
 {
     /**
@@ -13,10 +13,8 @@ class DepartamentosSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('departamentos')->insert([
-            ['nombre' => 'Infraestructura'],
-            ['nombre' => 'Desarrollo'],
-            ['nombre' => 'Soporte'],
-]);
+        Departamento::create(['nom_departamento' => 'Infraestructura']);
+        Departamento::create(['nom_departamento' => 'Desarrollo']);
+        Departamento::create(['nom_departamento' => 'Soporte']);
     }
 }

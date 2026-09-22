@@ -13,10 +13,13 @@ return new class extends Migration
     {
         Schema::create('usuarios', function (Blueprint $table) {
             $table->integer('ci')->unsigned()->primary();
-            $table->string('email', 100)->unique();
-            $table->string('password', 100);
+            $table->string('email', 150)->unique();
+            $table->string('password', 255);
+            $table->enum('estado', ['Activo', 'Inactivo']);
             $table->enum('rol', ['Administrador', 'Operador', 'Auditor', 'Recovery']);
-            $table->foreignId('departamento_id')->constrained('departamentos');
+            $table->foreignId('id_departamento')->constrained('departamentos');
+            $table->softDeletes();
+            $table->timestamps();
         });
     }
 

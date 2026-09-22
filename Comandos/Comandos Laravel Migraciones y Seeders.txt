@@ -1,7 +1,0 @@
-php artisan migrate:fresh
-
-Limpia la base de datos y ejecuta la migración
-
-php artisan migrate:fresh --seed
-
-Limpia la base de datos y ejecuta la migración junto con las semillas
