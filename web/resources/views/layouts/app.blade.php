@@ -50,7 +50,7 @@
                     </li>
                     <li>
                         @if(auth()->user()->rol === 'Administrador')
-                            <a href="#" class="{{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
+                            <a href="{{ route('usuarios.index') }}" class="{{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-user"></i> Usuarios
                             </a>
                         @endif

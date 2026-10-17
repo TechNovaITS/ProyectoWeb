@@ -15,4 +15,8 @@ class Usuario extends Authenticatable
     {
         return $this->password;
     } 
+    public function belongsToDepartamento()
+    {
+        return $this->belongsTo(Departamento::class, 'id_departamento');
+    }
 }
