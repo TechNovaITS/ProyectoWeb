@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\UsuariosController;
+use App\Http\Controllers\DispositivosController;
 
 Route::get('/', function () {
     return Auth::check() 
@@ -26,6 +27,9 @@ Route::delete('/administracion/departamentos/{departamento}', [DepartamentosCont
 Route::get('/administracion/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index')->middleware('auth', 'rol:Administrador');
 Route::get('/administracion/usuarios/nuevo-usuario', [UsuariosController::class, 'formCreate'])->name('usuarios.create')->middleware('auth', 'rol:Administrador');
 Route::post('/administracion/usuarios', [UsuariosController::class, 'store'])->name('usuarios.store')->middleware('auth', 'rol:Administrador');
+// Dispositivos
+Route::get('/administracion/dispositivos', [DispositivosController::class, 'index'])->name('dispositivos.index')->middleware('auth', 'rol:Administrador');
+Route::get('/administracion/dispositivos/{id}', [DispositivosController::class, 'show'])->name('dispositivos.show')->middleware('auth', 'rol:Administrador');
 // Google OAuth Routes
 Route::get('/auth/google', [GoogleController::class, 'redirectToGoogle'])->name('google.login');
 Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);

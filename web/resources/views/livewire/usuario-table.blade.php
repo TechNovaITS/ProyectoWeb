@@ -125,7 +125,7 @@
                     @empty
                         <tr>
                             <td colspan="5" class="py-4 text-center text-muted">
-                                No se encontraron departamentos registrados.
+                                No se encontraron usuarios registrados.
                             </td>
                         </tr>
                     @endforelse

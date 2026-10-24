@@ -64,7 +64,7 @@
                     </li>
                     <li>
                         @if(auth()->user()->rol === 'Administrador' or auth()->user()->rol === 'Operador')
-                            <a href="#" class="{{ request()->routeIs('dispositivos.*') ? 'active' : '' }}">
+                            <a href="{{ route('dispositivos.index') }}" class="{{ request()->routeIs('dispositivos.*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-server"></i> Dispositivos
                             </a>
                         @endif

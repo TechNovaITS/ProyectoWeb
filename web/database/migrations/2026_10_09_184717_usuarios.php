@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('usuarios', function (Blueprint $table) {
             $table->integer('ci')->unsigned()->primary();
             $table->string('email', 150)->unique();
-            $table->string('password', 255);
+            $table->string('password', 60);
             $table->enum('rol', ['Administrador', 'Operador', 'Auditor', 'Recovery']);
             $table->foreignId('id_departamento')->constrained('departamentos');
             $table->rememberToken();
