@@ -5,12 +5,12 @@ services:
     container_name: mysql_db
     restart: unless-stopped
     environment:
-      MYSQL_DATABASE: laravel_api
+      MYSQL_DATABASE: laravel
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_USER: api_user
-      MYSQL_PASSWORD: apipassword
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     ports:
-      - "3305:3306"
+      - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
     networks:
@@ -27,14 +27,80 @@ services:
       - "8000:80"
     volumes:
       - ./web:/var/www/html
+      # Volumen compartido para que Alloy pueda leer los logs de Apache/Laravel del host
+      - apache_logs:/var/log/apache2
     depends_on:
       - db
     networks:
       - app_network
 
+  # --- STACK DE MONITOREO ---
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_USER=admin
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_SECURITY_ALLOW_EMBEDDING=true
+    volumes:
+      - ./grafana:/var/lib/grafana
+    networks:
+      - app_network
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--web.enable-remote-write-receiver'
+    networks:
+      - app_network
+
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    restart: unless-stopped
+    ports:
+      - "3100:3100"
+    volumes:
+      - loki_data:/tmp/loki
+    command: -config.file=/etc/loki/local-config.yaml
+    networks:
+      - app_network
+
+  # Único Alloy que recolecta métricas de cAdvisor y lee los logs compartidos
+  alloy:
+    image: grafana/alloy:latest
+    container_name: grafana-alloy
+    restart: unless-stopped
+    ports:
+      - "12345:12345"
+    volumes:
+      - ./alloy/config.alloy:/etc/alloy/config.alloy:ro
+      - /var/run/docker.sock:/var/run/docker.sock:ro # Permite extraer métricas de cAdvisor de todos los contenedores
+      - apache_logs:/var/log/apache:ro               # Acceso a los logs de Apache de la app
+    command:
+      - "run"
+      - "--server.http.listen-addr=0.0.0.0:12345"
+      - "/etc/alloy/config.alloy"
+    networks:
+      - app_network
 
 volumes:
   db_data:
+  prometheus_data:
+  loki_data:
+  apache_logs:
 
 networks:
   app_network:

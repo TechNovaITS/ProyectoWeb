@@ -1,0 +1,29 @@
+// 1. Métricas de Contenedores con cAdvisor integrado
+prometheus.exporter.cadvisor "containers" {
+  docker_host = "unix:///var/run/docker.sock"
+}
+
+prometheus.scrape "scrape_containers" {
+  targets    = prometheus.exporter.cadvisor.containers.targets
+  forward_to = [prometheus.remote_write.prom_backend.receiver]
+}
+
+prometheus.remote_write "prom_backend" {
+  endpoint {
+    url = "http://prometheus:9090/api/v1/write"
+  }
+}
+
+// 2. Recolección de Logs de Apache
+loki.source.file "apache_logs" {
+  targets = [
+    { __path__ = "/var/log/apache/*.log", "job" = "apache" },
+  ]
+  forward_to = [loki.write.loki_backend.receiver]
+}
+
+loki.write "loki_backend" {
+  endpoint {
+    url = "http://loki:3100/loki/api/v1/push"
+  }
+}
