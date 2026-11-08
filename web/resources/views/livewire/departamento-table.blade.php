@@ -86,15 +86,17 @@
                                             class="btn btn-outline-secondary btn-sm px-3 py-1 fw-semibold" 
                                             data-bs-toggle="modal" 
                                             data-bs-target="#actualizarDepartamentoModal"
-                                            data-id="{{ $departamento->id }}"
+                                            data-url="{{ route('departamentos.update', $departamento->id) }}"
                                             data-nombre="{{ $departamento->nom_departamento }}">
                                         Editar
                                     </button>
                                     <button type="button" 
                                             class="btn btn-outline-danger btn-sm px-3 py-1 fw-semibold" 
                                             data-bs-toggle="modal" 
-                                            data-bs-target="#eliminarDepartamentoModal"
-                                            data-id="{{ $departamento->id }}">
+                                            data-bs-target="#eliminarModal"
+                                            data-url="{{ route('departamentos.destroy', $departamento->id) }}"
+                                            data-nombre="{{ $departamento->nom_departamento }}"
+                                            data-tabla="departamento">
                                         Eliminar
                                     </button>
                                 </div>

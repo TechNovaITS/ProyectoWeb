@@ -20,4 +20,8 @@ class DispositivosController extends Controller
     
     return view('dispositivo', compact('grafanaUrl', 'dispositivo'));
     }
+    public function formCreate()
+    {
+        return view('dispositivo-formulario');
+    }
 }

@@ -111,12 +111,17 @@
                                 <div class="d-inline-flex gap-2">
                                     <button type="button" 
                                             class="btn btn-outline-secondary btn-sm px-3 py-1 fw-semibold" 
-                                            >
+                                            onclick="window.location.href='{{ route('usuarios.update', $usuario->ci) }}'">
+                                            
                                         Editar
                                     </button>
                                     <button type="button" 
                                             class="btn btn-outline-danger btn-sm px-3 py-1 fw-semibold" 
-                                            >
+                                            data-bs-toggle="modal" 
+                                            data-bs-target="#eliminarModal"
+                                            data-url="{{ route('usuarios.destroy', $usuario->ci) }}"
+                                            data-nombre="{{ $usuario->email }}"
+                                            data-tabla="usuario">
                                         Eliminar
                                     </button>
                                 </div>

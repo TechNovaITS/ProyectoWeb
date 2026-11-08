@@ -6,7 +6,6 @@
     <title>@yield('title', 'Sentinel Ops - Control Central')</title>
     <!-- FontAwesome para los iconos -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Estilos CSS separados -->
     <link rel="stylesheet" href="{{ asset('layout.css') }}">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
@@ -63,6 +62,13 @@
                         @endif
                     </li>
                     <li>
+                        @if(auth()->user()->rol === 'Administrador')
+                            <a href="{{ route('dashboards.index') }}" class="{{ request()->routeIs('dashboards.*') ? 'active' : '' }}">
+                                <i class="fa-solid fa-dashboard"></i> Dashboards
+                            </a>
+                        @endif
+                    </li>
+                    <li>
                         @if(auth()->user()->rol === 'Administrador' or auth()->user()->rol === 'Operador')
                             <a href="{{ route('dispositivos.index') }}" class="{{ request()->routeIs('dispositivos.*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-server"></i> Dispositivos
@@ -89,13 +95,14 @@
             </div>
         </aside>
 
-        <!-- Contenido Derecho Dinámico -->
+        <!-- Contenido Dinámico -->
         <main class="main-content">
             @yield('content')
         </main>
     </div>
 
-    @stack('scripts')
+    @include('modals.modal_eliminar')    
     @livewireScripts
+    <script nonce="{{ app('csp-nonce') }}" src="{{ asset('app.js') }}" ></script>
 </body>
 </html>

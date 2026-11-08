@@ -32,14 +32,12 @@ class DepartamentosController extends Controller
     }
     public function destroy(Departamento $departamento)
     {   
-        try {
+        if ($departamento->usuarios()->exists()) {
+            return redirect()->route('departamentos.index')
+                             ->withErrors('No se puede eliminar el departamento porque está asociado a usuarios.');}
+        else {
             $departamento->delete();
             return redirect()->route('departamentos.index')
-                         ->with('success', 'Departamento eliminado exitosamente.');
-        } catch (QueryException $e) {
-            // Manejar la excepción si hay una restricción de clave foránea
-            return redirect()->route('departamentos.index')
-                             ->with('errors', 'No se puede eliminar el departamento porque está asociado a usuarios.');
-        }
+                         ->with('success', 'Departamento eliminado exitosamente.');}
     }
 }

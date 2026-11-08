@@ -17,6 +17,8 @@ class DatabaseSeeder extends Seeder
         $this->call([
             Departamentos::class,
             Usuarios::class,
+            Dispositivos::class,
+            Dashboards::class,
         ]);
     }
 }

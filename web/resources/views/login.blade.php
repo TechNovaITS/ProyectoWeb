@@ -93,15 +93,6 @@
     </div>
 
     <!-- Script para alternar visibilidad de la contraseña -->
-    <script>
-        function togglePasswordVisibility() {
-            const passwordInput = document.getElementById('password');
-            if (passwordInput.type === 'password') {
-                passwordInput.type = 'text';
-            } else {
-                passwordInput.type = 'password';
-            }
-        }
-    </script>
+    <script @nonce src="{{ asset('js/login.js') }}"></script>
 </body>
 </html>

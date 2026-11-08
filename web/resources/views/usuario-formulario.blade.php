@@ -1,13 +1,13 @@
-@extends('layouts.app') {{-- Reemplaza 'layouts.app' por el nombre de tu layout principal --}}
+@extends('layouts.app')
 
-@section('title', 'Crear nuevo usuario')
+@section('title', 'Formulario de Usuario')
 
 @section('content')
 <div class="user-create-container">
     {{-- Encabezado superior --}}
     <div class="page-header">
         <div class="breadcrumbs">
-            <span>Administración</span> / <span>Usuarios</span> / <span class="current">Nuevo Usuario</span>
+            <span>Administración</span> / <span>Usuarios</span> / <span class="current">{{ isset($usuario) ? 'Editar usuario' : 'nuevo usuario' }}</span>
             <h1 class="page-title">Gestión de usuarios</h1>
         </div>
         <a href="{{ route('usuarios.index') }}" class="btn-volver">
@@ -17,7 +17,7 @@
 
     {{-- Título de la acción --}}
     <div class="section-title-wrapper">
-        <h2>Crear nuevo usuario</h2>
+        <h2> {{ isset($usuario) ? 'Editar usuario' : 'Crear nuevo usuario' }}</h2>
     </div>
 
     {{-- Tarjeta del Formulario --}}
@@ -32,9 +32,11 @@
             </div>
         </div>
 
-        <form action="{{ route('usuarios.store') }}" method="POST" class="user-form">
+        <form action="{{ isset($usuario) ? route('usuarios.updated', $usuario) : route('usuarios.store') }}" method="POST" class="user-form">
             @csrf
-
+            @if(isset($usuario))
+                @method('PUT')
+            @endif
             <div class="form-row">
                 {{-- Email --}}
                 <div class="form-group">
@@ -46,13 +48,12 @@
                         placeholder="tu@cutcsa.com" 
                         pattern=".+@cutcsa\.com"
                         title="Por favor, introduce un correo válido de cutcsa.com" 
-                        value="{{ old('email') }}" 
+                        value="{{ old('email', isset($usuario) ? $usuario->email : '') }}" 
                         required 
                         autofocus
                         class="form-control-custom">
                     @error('email') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
-
                 {{-- Cédula --}}
                 <div class="form-group">
                     <label for="cedula">Cédula *</label>
@@ -60,7 +61,7 @@
                     type="number" 
                     id="cedula" 
                     name="ci" 
-                    value="{{ old('ci') }}" 
+                    value="{{ old('ci', isset($usuario) ? $usuario->ci : '') }}" 
                     placeholder="51234321" 
                     required 
                     min="0"
@@ -76,28 +77,29 @@
                 <div class="form-group">
                     <label for="departamento_id">Departamento *</label>
                     <select id="departamento_id" name="id_departamento" required class="form-control-custom">
-                        <option value="" disabled selected>Selecciona un departamento</option>
+                        <option value="" disabled {{ old('id_departamento', isset($usuario) ? $usuario->id_departamento : '') == '' ? 'selected' : '' }}>Selecciona un departamento</option>
                         @foreach($departamentos as $departamento)
-                            <option value="{{ $departamento->id }}" {{ old('id_departamento') == $departamento->id ? 'selected' : '' }}>
+                            <option value="{{ $departamento->id }}" {{ old('id_departamento', isset($usuario) ? $usuario->id_departamento : '') == $departamento->id ? 'selected' : '' }}>
                                 {{ $departamento->nom_departamento }}
                             </option>
                         @endforeach
                     </select>
                     @error('id_departamento') <span class="text-danger">{{ $message }}</span> @enderror
                 </div>
-
+                @if(!isset($usuario))
                 {{-- Rol --}}
-                <div class="form-group">
-                    <label for="rol">Rol *</label>
-                    <select id="rol" name="rol" required class="form-control-custom">
-                        <option value="" disabled selected>Selecciona un rol</option>
-                        <option value="Operador" {{ old('rol') == 'Operador' ? 'selected' : '' }}>Operador</option>
-                        <option value="Auditor" {{ old('rol') == 'Auditor' ? 'selected' : '' }}>Auditor</option>
-                    </select>
-                    @error('rol') <span class="text-danger">{{ $message }}</span> @enderror
-                </div>
+                    <div class="form-group">
+                        <label for="rol">Rol *</label>
+                        <select id="rol" name="rol" required class="form-control-custom">
+                            <option value="" disabled {{ old('rol', isset($usuario) ? $usuario->rol : '') == '' ? 'selected' : '' }}>Selecciona un rol</option>
+                            <option value="Operador" {{ old('rol', isset($usuario) ? $usuario->rol : '') == 'Operador' ? 'selected' : '' }}>Operador</option>
+                            <option value="Auditor" {{ old('rol', isset($usuario) ? $usuario->rol : '') == 'Auditor' ? 'selected' : '' }}>Auditor</option>
+                        </select>
+                        @error('rol') <span class="text-danger">{{ $message }}</span> @enderror
+                    </div>
+                
+            @endif
             </div>
-
             <div class="form-row-single">
                 {{-- Contraseña --}}
                 <div class="form-group full-width">
@@ -111,7 +113,7 @@
                             pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                             title="Debe contener al menos 8 caracteres, incluyendo una letra mayúscula, una minúscula y un número."
                             placeholder="••••••••" 
-                            required
+                            {{ isset($usuario) ? '' : 'required' }}
                             class="form-control-custom">
                         <i class="fas fa-eye-slash toggle-password"></i>
                     </div>
@@ -124,7 +126,7 @@
             <div class="form-actions">
                 <button type='reset' class="btn-reiniciar">Reiniciar</button>
                 <button type="submit" class="btn-submit">
-                    <i class="fas fa-user-plus"></i> Crear usuario
+                    <i class="fas fa-user-plus"></i> {{ isset($usuario) ? 'Actualizar usuario' : 'Crear usuario' }}
                 </button>
             </div>
         </form>

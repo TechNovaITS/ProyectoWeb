@@ -19,7 +19,7 @@ class CheckRole
             return $next($request);
         }
 
-        // Si no cumple, puedes redirigir o lanzar un error 403 (No autorizado)
+        // Si no cumple,  lanzar un error 403 (No autorizado)
         abort(403, 'No tienes permisos para acceder a esta sección.');
     }
     

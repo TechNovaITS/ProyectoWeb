@@ -34,7 +34,7 @@
         <div class="header-actions">
             <a 
             class="btn-primary"
-           >
+            href="{{ route('dispositivos.create') }}">
                 <i class="fa-solid fa-device"></i> Crear dispositivo
             </a>
         </div>

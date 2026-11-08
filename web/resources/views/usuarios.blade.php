@@ -41,6 +41,7 @@
      </div>
 </div>
 <livewire:usuario-table />
+@include('modals.modal_eliminar')
 @endsection
 
 @push('styles')

@@ -23,3 +23,10 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+<IfModule mod_headers.c>
+    #Eliminamos posibles cabeceras previas para evitar duplicados con Laravel
+    Header unset X-Frame-Options
+    Header always set X-Frame-Options "DENY"
+</IfModule>
+

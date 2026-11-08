@@ -26,8 +26,8 @@ class CreateUsuarioRequest extends FormRequest
     {
         return [
             'ci' => 'required|integer|unique:usuarios',
-            'email' => 'required|email|unique:usuarios',
-            'password' => 'required|string|min:8',
+            'email' => 'required|email:rfc,dns|ends_with:@cutcsa.com|unique:usuarios',
+            'password' => ['required', 'nullable', 'string', 'regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/'],
             'rol' => ['required', Rule::enum(UserRole::class)],
             'id_departamento' => 'required|integer|exists:departamentos,id',
         ];

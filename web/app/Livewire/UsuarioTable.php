@@ -38,6 +38,8 @@ class UsuarioTable extends Component
     public function render()
     {
         $usuarios = Usuario::query()
+            ->where('rol', '!=', 'Administrador')
+            ->where('rol', '!=', 'Recovery')
             ->when($this->search, function ($query) {
                 $query->where('email', 'like', '%' . $this->search . '%');
             })
