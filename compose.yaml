@@ -1,0 +1,365 @@
+# Servicios locales: aplicación, clúster MySQL, ProxySQL y observabilidad.
+services:
+  # Aplicación web con Apache y PHP.
+  web:
+    # Asigna un nombre claro al contenedor en Docker Desktop.
+    container_name: docker-servidor-web
+    # Construye Apache y PHP con el Dockerfile del proyecto.
+    build: .
+    # Publica el sitio en http://localhost:8080.
+    ports:
+      - "8080:80"
+    # Monta el código en vivo: el HTML, CSS, JS y PHP cambian sin reconstrucción.
+    volumes:
+      - ./src:/var/www/html
+    # La aplicación debe conectarse al proxy, nunca a un nodo directo.
+    environment:
+      DB_HOST: proxy
+      DB_PORT: "6033"
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-app}
+      MYSQL_USER: ${MYSQL_USER:-appuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-apppass}
+    # Espera a que ProxySQL termine de configurarse.
+    depends_on:
+      configurar-proxy:
+        condition: service_completed_successfully
+
+  # Miembro inicial del clúster; el rol PRIMARY sigue siendo dinámico.
+  main:
+    container_name: docker-mysql-main
+    hostname: main
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile.node-1
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass}
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-app}
+      MYSQL_USER: ${MYSQL_USER:-appuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-apppass}
+    volumes:
+      - mysql_1_data:/var/lib/mysql
+    # Conserva el DNS histórico usado por metadata de InnoDB Cluster y ProxySQL.
+    networks:
+      default:
+        aliases:
+          - mysql-1
+    # El healthcheck solo comprueba disponibilidad local; Shell verifica Group Replication.
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$${MYSQL_ROOT_PASSWORD}\" --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  # Miembro de respaldo; Group Replication puede elegirlo como PRIMARY.
+  fallback:
+    container_name: docker-mysql-fallback
+    hostname: fallback
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile.node-2
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass}
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-app}
+      MYSQL_USER: ${MYSQL_USER:-appuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-apppass}
+    volumes:
+      - mysql_2_data:/var/lib/mysql
+    networks:
+      default:
+        aliases:
+          - mysql-2
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$${MYSQL_ROOT_PASSWORD}\" --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  # Tercer miembro; "slave" es el nombre solicitado, no un rol fijo de replicación.
+  slave:
+    container_name: docker-mysql-slave
+    hostname: slave
+    build:
+      context: ./mysql
+      dockerfile: Dockerfile.node-3
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass}
+      MYSQL_ROOT_HOST: "%"
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-app}
+      MYSQL_USER: ${MYSQL_USER:-appuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-apppass}
+    volumes:
+      - mysql_3_data:/var/lib/mysql
+    networks:
+      default:
+        aliases:
+          - mysql-3
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -uroot -p\"$${MYSQL_ROOT_PASSWORD}\" --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  # Crea el clúster una sola vez y agrega los otros dos nodos.
+  inicializar-cluster:
+    # Tarea de una sola ejecución: prepara la topología antes de iniciar consumidores.
+    container_name: docker-mysql-inicializar-cluster
+    build: ./mysql-shell
+    restart: "no"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-rootpass}
+      MYSQL_MONITOR_PASSWORD: ${MYSQL_MONITOR_PASSWORD:-monitorpass}
+      MYSQL_EXPORTER_PASSWORD: ${MYSQL_EXPORTER_PASSWORD:-exporterpass}
+    volumes:
+      - ./mysql/inicializar-cluster.js:/scripts/inicializar-cluster.js:ro
+    command: ["mysqlsh", "--js", "--file", "/scripts/inicializar-cluster.js"]
+    depends_on:
+      main:
+        condition: service_healthy
+      fallback:
+        condition: service_healthy
+      slave:
+        condition: service_healthy
+
+  # ProxySQL detecta el primario del clúster y enruta las conexiones SQL.
+  proxy:
+    # Identifica el proxy SQL que recibe las conexiones de la aplicación.
+    container_name: docker-proxy-sql
+    build: ./proxysql
+    restart: unless-stopped
+    environment:
+      PROXYSQL_ADMIN_USER: ${PROXYSQL_ADMIN_USER:-clusteradmin}
+      PROXYSQL_ADMIN_PASSWORD: ${PROXYSQL_ADMIN_PASSWORD:-adminpass}
+    ports:
+      - "6033:6033"
+    volumes:
+      - proxysql_data:/var/lib/proxysql
+    # No se inicia hasta que Shell haya creado o recuperado el clúster.
+    depends_on:
+      inicializar-cluster:
+        condition: service_completed_successfully
+
+  # Carga la configuración de monitoreo, nodos y usuario de aplicación.
+  configurar-proxy:
+    # Identifica la tarea que configura ProxySQL.
+    container_name: docker-configurar-proxy-sql
+    build:
+      context: ./proxysql
+      dockerfile: Dockerfile.configurar
+    restart: "no"
+    environment:
+      PROXYSQL_ADMIN_USER: ${PROXYSQL_ADMIN_USER:-clusteradmin}
+      PROXYSQL_ADMIN_PASSWORD: ${PROXYSQL_ADMIN_PASSWORD:-adminpass}
+      MYSQL_MONITOR_PASSWORD: ${MYSQL_MONITOR_PASSWORD:-monitorpass}
+      MYSQL_USER: ${MYSQL_USER:-appuser}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-apppass}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-app}
+    # Es un trabajo de configuración: completa y sale en lugar de quedar residente.
+    entrypoint: ["/bin/sh", "/scripts/configurar-proxy.sh"]
+    depends_on:
+      proxy:
+        condition: service_started
+
+  # Limita el acceso de Alloy al Docker API a consultas de contenedores.
+  docker-socket-proxy:
+    image: tecnativa/docker-socket-proxy:0.3.0
+    restart: unless-stopped
+    environment:
+      CONTAINERS: "1"
+      NETWORKS: "1"
+      POST: "0"
+    # Alloy puede descubrir contenedores/redes, pero no ejecutar operaciones de escritura.
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    expose:
+      - "2375"
+
+  # Expone métricas de los tres nodos para Prometheus.
+  mysql-exporter:
+    build: ./observability/mysql-exporter
+    restart: unless-stopped
+    environment:
+      MYSQL_EXPORTER_USER: prometheus_exporter
+      MYSQL_EXPORTER_PASSWORD: ${MYSQL_EXPORTER_PASSWORD:-exporterpass}
+    depends_on:
+      inicializar-cluster:
+        condition: service_completed_successfully
+
+  # Recolecta métricas de CPU, memoria y actividad de los contenedores.
+  cadvisor:
+    image: gcr.io/cadvisor/cadvisor:v0.52.1
+    restart: unless-stopped
+    privileged: true
+    command:
+      - "--docker_only=true"
+      - "--docker=tcp://docker-socket-proxy:2375"
+    volumes:
+      - /:/rootfs:ro
+      - /sys:/sys:ro
+      - /var/lib/docker:/var/lib/docker:ro
+      - /dev/disk:/dev/disk:ro
+    expose:
+      - "8080"
+    depends_on:
+      - docker-socket-proxy
+
+  # Guarda métricas, evalúa reglas de alerta y las envía a Alertmanager.
+  prometheus:
+    image: prom/prometheus:v3.2.1
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+      - "--storage.tsdb.path=/prometheus"
+      - "--storage.tsdb.retention.time=15d"
+      - "--storage.tsdb.retention.size=10GB"
+      - "--web.enable-lifecycle"
+    ports:
+      - "127.0.0.1:9090:9090"
+    volumes:
+      - ./observability/prometheus:/etc/prometheus:ro
+      - prometheus_data:/prometheus
+    depends_on:
+      - mysql-exporter
+      - cadvisor
+      - alertmanager
+
+  # Agrupa las alertas y permite consultar su estado en la red local.
+  alertmanager:
+    image: prom/alertmanager:v0.28.1
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/alertmanager/alertmanager.yml"
+      - "--storage.path=/alertmanager"
+    ports:
+      - "127.0.0.1:9093:9093"
+    volumes:
+      - ./observability/alertmanager:/etc/alertmanager:ro
+      - alertmanager_data:/alertmanager
+
+  # Conserva y consulta los registros enviados por Alloy.
+  loki:
+    image: grafana/loki:3.5.0
+    restart: unless-stopped
+    command:
+      - "-config.file=/etc/loki/loki.yml"
+    volumes:
+      - ./observability/loki:/etc/loki:ro
+      - loki_data:/loki
+
+  # Recoge los logs de Docker y los envía a Loki; no requiere Promtail ni Vector.
+  alloy:
+    image: grafana/alloy:v1.8.2
+    restart: unless-stopped
+    command:
+      - "run"
+      - "--server.http.listen-addr=0.0.0.0:12345"
+      - "--storage.path=/var/lib/alloy/data"
+      - "/etc/alloy/config.alloy"
+    # EVE se monta en solo lectura: el sensor escribe y Alloy solo consume logs.
+    volumes:
+      - ./observability/alloy:/etc/alloy:ro
+      - alloy_data:/var/lib/alloy/data
+      - suricata_logs:/var/log/suricata:ro
+    depends_on:
+      - loki
+      - docker-socket-proxy
+
+  # Actualiza las reglas ET Open antes de iniciar el sensor de red.
+  suricata-rules:
+    image: jasonish/suricata:8.0
+    profiles:
+      - security
+    restart: "no"
+    command: ["suricata-update"]
+    volumes:
+      - suricata_config:/etc/suricata
+      - suricata_data:/var/lib/suricata
+
+  # IDS pasivo para una interfaz del host Linux; requiere Docker Engine en Linux.
+  suricata:
+    image: jasonish/suricata:8.0
+    profiles:
+      - security
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_NICE
+    command: ["-i", "${SURICATA_INTERFACE:-eth0}"]
+    restart: unless-stopped
+    stop_grace_period: 30s
+    volumes:
+      - suricata_config:/etc/suricata
+      - suricata_data:/var/lib/suricata
+      - suricata_logs:/var/log/suricata
+    depends_on:
+      suricata-rules:
+        condition: service_completed_successfully
+
+  # Paneles, consultas de logs y alertas con fuentes de datos provisionadas.
+  grafana:
+    image: grafana/grafana:11.6.0
+    restart: unless-stopped
+    environment:
+      GF_SECURITY_ADMIN_USER: ${GRAFANA_ADMIN_USER:-admin}
+      GF_SECURITY_ADMIN_PASSWORD: ${GRAFANA_ADMIN_PASSWORD:-grafana-local-change-me}
+      GF_USERS_ALLOW_SIGN_UP: "false"
+    # Los paneles de administración quedan accesibles solo desde esta máquina.
+    ports:
+      - "127.0.0.1:3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      - ./observability/grafana/provisioning:/etc/grafana/provisioning:ro
+      - ./observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - prometheus
+      - loki
+      - alertmanager
+
+  # Envía periódicamente al IIS un archivo con datos persistentes y configuración.
+  backup-observabilidad:
+    profiles:
+      - backup
+    build: ./observability/backup
+    restart: unless-stopped
+    environment:
+      BACKUP_IIS_URL: ${BACKUP_IIS_URL:-}
+      BACKUP_IIS_USERNAME: ${BACKUP_IIS_USERNAME:-}
+      BACKUP_IIS_PASSWORD: ${BACKUP_IIS_PASSWORD:-}
+      BACKUP_INTERVAL_SECONDS: ${BACKUP_INTERVAL_SECONDS:-86400}
+    # Todos los orígenes se montan en solo lectura para no modificar datos activos.
+    volumes:
+      - ./observability:/backup-config/observability:ro
+      - grafana_data:/backup-data/grafana:ro
+      - prometheus_data:/backup-data/prometheus:ro
+      - loki_data:/backup-data/loki:ro
+      - alertmanager_data:/backup-data/alertmanager:ro
+      - alloy_data:/backup-data/alloy:ro
+      - suricata_config:/backup-data/suricata-config:ro
+      - suricata_data:/backup-data/suricata-data:ro
+      - suricata_logs:/backup-data/suricata-logs:ro
+    depends_on:
+      - grafana
+      - prometheus
+      - loki
+      - alertmanager
+
+# Los volúmenes nuevos mantienen los datos de cada nodo por separado.
+# El volumen anterior docker_mysql_data se deja sin usar y no se migra ni borra.
+volumes:
+  mysql_1_data:
+  mysql_2_data:
+  mysql_3_data:
+  proxysql_data:
+  prometheus_data:
+  alertmanager_data:
+  loki_data:
+  alloy_data:
+  grafana_data:
+  suricata_config:
+  suricata_data:
+  suricata_logs:

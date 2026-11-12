@@ -1,0 +1,5 @@
+{
+    "require": {
+        "spatie/laravel-csp": "^3.31"
+    }
+}

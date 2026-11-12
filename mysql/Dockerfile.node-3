@@ -1,0 +1,4 @@
+FROM mysql:8.0
+
+# La identidad del tercer nodo se incluye en su imagen para evitar configuraciones cruzadas.
+COPY nodo-3.cnf /etc/mysql/conf.d/replicacion.cnf

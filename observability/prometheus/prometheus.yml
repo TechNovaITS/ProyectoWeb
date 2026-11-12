@@ -1,0 +1,65 @@
+# Configuración global de consultas y evaluación de alertas.
+global:
+  # Mantiene carga moderada para un stack de laboratorio y resolución de alertas.
+  scrape_interval: 15s
+  evaluation_interval: 15s
+
+# Carga reglas externas para no mezclar consultas con configuración de scrape.
+rule_files:
+  - /etc/prometheus/alerts.yml
+
+# Prometheus entrega las alertas evaluadas al servicio Alertmanager.
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets:
+            - alertmanager:9093
+
+# Fuentes de métricas del stack de observabilidad, host y MySQL.
+scrape_configs:
+  - job_name: prometheus
+    static_configs:
+      - targets:
+          - prometheus:9090
+
+  - job_name: alertmanager
+    static_configs:
+      - targets:
+          - alertmanager:9093
+
+  - job_name: loki
+    static_configs:
+      - targets:
+          - loki:3100
+
+  - job_name: alloy
+    static_configs:
+      - targets:
+          - alloy:12345
+
+  - job_name: cadvisor
+    static_configs:
+      - targets:
+          - cadvisor:8080
+
+  - job_name: mysql
+    # El exporter implementa /probe para consultar distintos nodos por petición.
+    metrics_path: /probe
+    params:
+      auth_module:
+        - client
+    static_configs:
+      - targets:
+          - main:3306
+          - fallback:3306
+          - slave:3306
+    relabel_configs:
+      # Pasa el MySQL original como parámetro y lo conserva como etiqueta instance.
+      - source_labels:
+          - __address__
+        target_label: __param_target
+      - source_labels:
+          - __param_target
+        target_label: instance
+      - target_label: __address__
+        replacement: mysql-exporter:9104

@@ -1,0 +1,14 @@
+# Agrupa alertas similares para reducir notificaciones repetidas.
+route:
+  receiver: local
+  group_by:
+    - alertname
+    - job
+    - instance
+  group_wait: 30s
+  group_interval: 5m
+  repeat_interval: 4h
+
+receivers:
+  # Receptor local sin destinos externos; configura aquí correo, Slack o webhook.
+  - name: local

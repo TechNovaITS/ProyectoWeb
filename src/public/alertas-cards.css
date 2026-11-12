@@ -1,0 +1,64 @@
+.kpi-container {
+    display: flex;
+    gap: 1rem;
+    width: 100%;
+    box-sizing: border-box;
+    margin-bottom: 1.25rem; /* Espacio uniforme con los filtros de la tabla debajo */
+}
+
+.kpi-card {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    background-color: #ffffff;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px; /* Bordes ligeramente más sutiles acordes al layout */
+    padding: 0.85rem 1.15rem;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.02);
+}
+
+.kpi-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 38px;
+    height: 38px;
+    border-radius: 8px;
+    margin-right: 0.85rem;
+    flex-shrink: 0;
+}
+
+/* Colores de fondo e icono adaptados al sistema */
+.kpi-icon-blue {
+    background-color: #eef6ff;
+    color: #3b82f6;
+}
+
+.kpi-icon-yellow {
+    background-color: #fef3c7;
+    color: #d97706;
+}
+
+.kpi-icon-red {
+    background-color: #fee2e2;
+    color: #ef4444;
+}
+
+.kpi-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.kpi-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #64748b;
+    margin-bottom: 0.1rem;
+}
+
+.kpi-value {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1e293b;
+    line-height: 1.15;
+}

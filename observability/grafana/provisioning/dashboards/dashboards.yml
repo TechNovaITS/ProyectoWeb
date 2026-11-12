@@ -1,0 +1,12 @@
+# Aprovisiona dashboards desde archivos versionados dentro del contenedor.
+apiVersion: 1
+
+providers:
+  - name: Infrastructure
+    orgId: 1
+    folder: Infrastructure
+    type: file
+    disableDeletion: true
+    editable: false
+    options:
+      path: /var/lib/grafana/dashboards
