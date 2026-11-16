@@ -10,6 +10,11 @@
       "related-metrics-description": "現在のラベルフィルターに基づく関連メトリクス"
     }
   },
+  "App": {
+    "current-error-title": "",
+    "instances-error-title": "",
+    "loading": "読み込み中..."
+  },
   "attribute-explorer": {
     "badge-metric": "OTelメトリクス属性",
     "badge-resource": "OTelリソース属性",
@@ -78,7 +83,7 @@
     "section-label": "内訳",
     "select-label": "選択",
     "sync-y-axis": {
-      "label": ""
+      "label": "Y軸を同期"
     }
   },
   "checkbox-list": {
@@ -164,6 +169,15 @@
     "button": "フィードバックを提供"
   },
   "gmd-viz-panel": {
+    "enable-exemplars": {
+      "empty": "現在の時間範囲では、このメトリクスのエグザンプラーが見つかりませんでした",
+      "error": "クエリに失敗したため、エグゼンプラーを読み込めませんでした",
+      "label": "エグゼンプラーを表示",
+      "off": "エグゼンプラーを表示（カウンターとヒストグラムのみ）",
+      "on": "エグゼンプラーを表示中",
+      "unavailable": "このメトリクスではエグザンプラーを利用できません",
+      "unsupported-panel": "このパネルタイプではエグザンプラーを利用できません"
+    },
     "native-histogram": "ネイティブヒストグラム",
     "variant": {
       "heatmap": "ヒートマップ",
@@ -301,9 +315,13 @@
   },
   "panel-menu": {
     "action": {
+      "add-bookmark": "ブックマークを追加",
+      "add-to-dashboard": "ダッシュボードに追加",
       "copy-url": "URLをコピー",
       "copy-url-success": "URLをクリップボードにコピーしました",
-      "explore": "探索"
+      "create-alert": "アラートを作成",
+      "explore": "探索",
+      "remove-bookmark": "ブックマークを削除"
     },
     "group": {
       "actions": "操作",
@@ -361,6 +379,7 @@
   },
   "related-logs": {
     "datasource-description": "応答に{{timeout}}秒以上かかった場合、一部のLokiデータソースがドロップダウンに表示されないことがあります。すべてのLokiデータソースのログを表示するには、ログドリルダウンを使用してみてください。",
+    "datasource-discovery-error": "関連ログのデータソースを読み込めませんでした。",
     "datasource-label": "ログデータソース",
     "experimental-note": "注：関連ログは実験的な機能です。",
     "loading": "読み込み中...",
@@ -383,6 +402,12 @@
     "metrics-drilldown": "Metrics Drilldown",
     "open-in-drilldown-tooltip": "Metrics Drilldownで開く"
   },
+  "shared": {
+    "hooks": {
+      "useCurrentPrometheusDataSourceUid": "",
+      "usePrometheusDataSourceInstances": ""
+    }
+  },
   "show-more-button": {
     "text_other": "さらに{{count}}件表示（{{current}}/{{total}}）"
   },
@@ -401,6 +426,7 @@
       "search-placeholder": "検索..."
     },
     "filter-type": {
+      "category": "",
       "prefix": "プレフィックス",
       "recent": "最近",
       "rule-group": "ルールグループ",
@@ -411,6 +437,27 @@
       "search-aria-label": "ラベルを検索",
       "search-placeholder": "検索..."
     },
+    "metric-category": {
+      "cloud": "",
+      "container": "",
+      "database": "",
+      "deployment": "",
+      "error": "",
+      "exception": "",
+      "frontend": "",
+      "host-os": "",
+      "http": "",
+      "kubernetes": "",
+      "messaging": "",
+      "network": "",
+      "other": "",
+      "process": "",
+      "rpc": "",
+      "runtime": "",
+      "service": "",
+      "telemetry-sdk": "",
+      "url": ""
+    },
     "recent-metrics": {
       "all-time": "全期間",
       "past-interval": "過去{{interval}}"
@@ -418,6 +465,8 @@
     "section": {
       "bookmarks": "ブックマーク",
       "bookmarks-description": "保存したメトリクスにアクセスして素早く参照",
+      "category-filters": "",
+      "category-filters-description": "",
       "group-by-labels": "ラベルでグループ化",
       "group-by-labels-description": "ラベル値でメトリクスをグループ化",
       "prefix-filters": "プレフィックスフィルター",
@@ -460,7 +509,6 @@
   },
   "ui-text": {
     "metric-select": {
-      "bookmark": "ブックマーク",
       "copy-url": "URLをコピー",
       "open-explore": "エクスプローラーで開く",
       "select-new-metric-tooltip": "既存のメトリクスを削除して、新しいメトリクスを選択します"

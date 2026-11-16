@@ -1,6 +1,6 @@
 FROM php:8.4-apache
 
-# Instalar dependencias del sistema
+# Instalar dependencias del sistema y Node.js (Node 20 LTS) en la misma capa
 RUN apt-get update && apt-get install -y \
     libpng-dev \
     libonig-dev \
@@ -8,9 +8,11 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip \
     git \
-    curl
+    curl \
+    && curl -fsSL https://deb.nodesource.com/setup_20.x | bash - \
+    && apt-get install -y nodejs
 
-# Limpiar caché
+# Limpiar caché de apt
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Instalar extensiones de PHP necesarias para Laravel
@@ -31,5 +33,5 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Configurar directorio de trabajo
 WORKDIR /var/www/html
 
-# Dar permisos al usuario de Apache
+# 6. Dar permisos adecuados al usuario de Apache para storage y bootstrap/cache
 RUN chown -R www-data:www-data /var/www/html

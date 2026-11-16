@@ -1,6 +1,0 @@
-FROM mysql:8.0
-
-# Incluye la tarea efímera que configura ProxySQL y normaliza finales de línea de Windows.
-COPY configurar-proxy.sh /scripts/configurar-proxy.sh
-RUN sed -i 's/\r$//' /scripts/configurar-proxy.sh \
-    && chmod 0755 /scripts/configurar-proxy.sh

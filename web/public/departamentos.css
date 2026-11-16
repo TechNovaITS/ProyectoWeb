@@ -1,0 +1,92 @@
+.departments-wrapper {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 0 15px;
+    box-sizing: border-box;
+}
+
+.content-header-top,
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.breadcrumbs {
+    font-size: 1.1rem;
+    color: #6b7280;
+}
+
+.breadcrumbs .current {
+    color: #374151;
+    font-weight: 500;
+}
+
+.header-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap; /* Vital para que si hay 2 botones, el segundo baje si no caben */
+    align-items: center;
+}
+
+.btn-primary {
+    background-color: #2563eb;
+    color: #ffffff;
+    padding: 10px 18px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center; /* Centra el texto/icono por si el botón se estira */
+    gap: 8px;
+    transition: background-color 0.2s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    white-space: nowrap; /* Evita que el texto del botón se rompa en varias líneas */
+    flex: 0 1 auto; /* Evita que crezcan de más, permitiendo que respeten su contenido */
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8;
+}
+
+.page-title-container {
+    margin-bottom: 5px;
+}
+
+.page-title {
+    font-size: clamp(1.3rem, 2.5vw, 1.75rem);
+    font-weight: 700;
+    color: #111827;
+    letter-spacing: -0.5px;
+    word-break: break-word; /* Evita que títulos larguísimos desborden la pantalla */
+}
+
+/* ==========================================
+   MEDIA QUERY PARA MÓVILES (Pantallas <= 768px)
+   ========================================== */
+@media (max-width: 768px) {
+    .content-header-top,
+    .content-header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .header-actions {
+        width: 100%;
+        flex-direction: column; /* Apila los botones uno debajo del otro en celulares */
+    }
+
+    .header-actions .btn-primary {
+        width: 100%; /* Hace que cada botón ocupe todo el ancho disponible para evitar deformaciones */
+        white-space: normal; /* Permite salto de línea si el texto del botón es extremadamente largo */
+        text-align: center;
+    }
+}

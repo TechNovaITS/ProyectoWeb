@@ -10,6 +10,11 @@
       "related-metrics-description": "Relevant metrics based on current label filters"
     }
   },
+  "App": {
+    "current-error-title": "Failed to load current Prometheus data source",
+    "instances-error-title": "Failed to load data sources",
+    "loading": "Loading..."
+  },
   "attribute-explorer": {
     "badge-metric": "OTel metric attribute",
     "badge-resource": "OTel resource attribute",
@@ -169,6 +174,15 @@
     "button": "Give feedback"
   },
   "gmd-viz-panel": {
+    "enable-exemplars": {
+      "empty": "No exemplars found for this metric in the current time range",
+      "error": "Exemplars couldn't be loaded because the query failed",
+      "label": "Show exemplars",
+      "off": "Show exemplars (counters and histograms only)",
+      "on": "Showing exemplars",
+      "unavailable": "Exemplars aren't available for this metric",
+      "unsupported-panel": "Exemplars aren't available for this panel type"
+    },
     "native-histogram": "Native Histogram",
     "variant": {
       "heatmap": "heatmap",
@@ -306,9 +320,13 @@
   },
   "panel-menu": {
     "action": {
+      "add-bookmark": "Add bookmark",
+      "add-to-dashboard": "Add to dashboard",
       "copy-url": "Copy URL",
       "copy-url-success": "URL copied to clipboard",
-      "explore": "Explore"
+      "create-alert": "Create alert",
+      "explore": "Explore",
+      "remove-bookmark": "Remove bookmark"
     },
     "group": {
       "actions": "Actions",
@@ -368,6 +386,7 @@
   },
   "related-logs": {
     "datasource-description": "Some Loki data sources might be missing from the dropdown if they took longer than {{timeout}} seconds to respond. To view logs for all Loki data sources, try using Logs Drilldown.",
+    "datasource-discovery-error": "Failed to load data sources for related logs.",
     "datasource-label": "Logs data source",
     "experimental-note": "Note: Related logs is an experimental feature.",
     "loading": "Loading...",
@@ -390,6 +409,12 @@
     "metrics-drilldown": "Metrics Drilldown",
     "open-in-drilldown-tooltip": "Open in Metrics Drilldown"
   },
+  "shared": {
+    "hooks": {
+      "useCurrentPrometheusDataSourceUid": "Failed to get current Prometheus data source uid",
+      "usePrometheusDataSourceInstances": "Failed to load data source instances"
+    }
+  },
   "show-more-button": {
     "text_one": "Show {{count}} more ({{current}}/{{total}})",
     "text_other": "Show {{count}} more ({{current}}/{{total}})"
@@ -409,6 +434,7 @@
       "search-placeholder": "Search..."
     },
     "filter-type": {
+      "category": "category",
       "prefix": "prefix",
       "recent": "recent",
       "rule-group": "rule group",
@@ -419,6 +445,27 @@
       "search-aria-label": "Search labels",
       "search-placeholder": "Search..."
     },
+    "metric-category": {
+      "cloud": "Cloud",
+      "container": "Container",
+      "database": "Database",
+      "deployment": "Deployment",
+      "error": "Error",
+      "exception": "Exception",
+      "frontend": "Frontend",
+      "host-os": "Host / OS",
+      "http": "HTTP",
+      "kubernetes": "Kubernetes",
+      "messaging": "Messaging",
+      "network": "Network",
+      "other": "Other",
+      "process": "Process",
+      "rpc": "RPC",
+      "runtime": "Runtime-specific",
+      "service": "Service",
+      "telemetry-sdk": "Telemetry SDK",
+      "url": "URL"
+    },
     "recent-metrics": {
       "all-time": "All time",
       "past-interval": "Past {{interval}}"
@@ -426,6 +473,8 @@
     "section": {
       "bookmarks": "Bookmarks",
       "bookmarks-description": "Access your saved metrics for quick reference",
+      "category-filters": "Category filters",
+      "category-filters-description": "Group metrics by OpenTelemetry style categories using the start of the metric name. This is a fuzzy match, so a metric can land in a category that does not fit it. Metrics such as node_, kube_ and grpc_ do not match any category and appear under Other.",
       "group-by-labels": "Group by labels",
       "group-by-labels-description": "Group metrics by their label values",
       "prefix-filters": "Prefix filters",
@@ -470,7 +519,6 @@
   },
   "ui-text": {
     "metric-select": {
-      "bookmark": "Bookmark",
       "copy-url": "Copy url",
       "open-explore": "Open in explore",
       "select-new-metric-tooltip": "Remove existing metric and choose a new metric"

@@ -10,6 +10,11 @@
       "related-metrics-description": "基于当前标签筛选条件的相关指标"
     }
   },
+  "App": {
+    "current-error-title": "",
+    "instances-error-title": "",
+    "loading": "正在加载…"
+  },
   "attribute-explorer": {
     "badge-metric": "OTel 指标属性",
     "badge-resource": "OTel 资源属性",
@@ -78,7 +83,7 @@
     "section-label": "明细",
     "select-label": "选择",
     "sync-y-axis": {
-      "label": ""
+      "label": "同步 Y 轴"
     }
   },
   "checkbox-list": {
@@ -164,6 +169,15 @@
     "button": "提供反馈"
   },
   "gmd-viz-panel": {
+    "enable-exemplars": {
+      "empty": "在当前时间范围内未找到此指标的范例",
+      "error": "由于查询失败，无法加载范例",
+      "label": "显示范例",
+      "off": "显示范例（仅限计数器和直方图）",
+      "on": "正在显示范例",
+      "unavailable": "此指标不支持范本",
+      "unsupported-panel": "此面板类型不支持范本"
+    },
     "native-histogram": "原生直方图",
     "variant": {
       "heatmap": "热图",
@@ -301,9 +315,13 @@
   },
   "panel-menu": {
     "action": {
+      "add-bookmark": "添加书签",
+      "add-to-dashboard": "添加到数据面板",
       "copy-url": "复制 URL",
       "copy-url-success": "URL 已复制到剪贴板",
-      "explore": "探索"
+      "create-alert": "创建警报",
+      "explore": "探索",
+      "remove-bookmark": "移除书签"
     },
     "group": {
       "actions": "操作",
@@ -361,6 +379,7 @@
   },
   "related-logs": {
     "datasource-description": "如果某些 Loki 数据源的响应时间超过 {{timeout}} 秒，则可能不会显示在下拉列表中。要查看所有 Loki 数据源的日志，请尝试使用日志深入分析功能。",
+    "datasource-discovery-error": "加载相关日志的数据源失败。",
     "datasource-label": "日志数据源",
     "experimental-note": "注意：相关日志是一项实验性功能。",
     "loading": "正在加载…",
@@ -383,6 +402,12 @@
     "metrics-drilldown": "指标深入分析",
     "open-in-drilldown-tooltip": "在指标深入分析中打开"
   },
+  "shared": {
+    "hooks": {
+      "useCurrentPrometheusDataSourceUid": "",
+      "usePrometheusDataSourceInstances": ""
+    }
+  },
   "show-more-button": {
     "text_other": "显示另外 {{count}} 个 ({{current}}/{{total}})"
   },
@@ -401,6 +426,7 @@
       "search-placeholder": "搜索..."
     },
     "filter-type": {
+      "category": "",
       "prefix": "前缀",
       "recent": "最近",
       "rule-group": "规则组",
@@ -411,6 +437,27 @@
       "search-aria-label": "搜索标签",
       "search-placeholder": "搜索..."
     },
+    "metric-category": {
+      "cloud": "",
+      "container": "",
+      "database": "",
+      "deployment": "",
+      "error": "",
+      "exception": "",
+      "frontend": "",
+      "host-os": "",
+      "http": "",
+      "kubernetes": "",
+      "messaging": "",
+      "network": "",
+      "other": "",
+      "process": "",
+      "rpc": "",
+      "runtime": "",
+      "service": "",
+      "telemetry-sdk": "",
+      "url": ""
+    },
     "recent-metrics": {
       "all-time": "所有时间",
       "past-interval": "过去{{interval}}"
@@ -418,6 +465,8 @@
     "section": {
       "bookmarks": "书签",
       "bookmarks-description": "快速访问您保存的指标",
+      "category-filters": "",
+      "category-filters-description": "",
       "group-by-labels": "按标签分组",
       "group-by-labels-description": "按标签值对指标分组",
       "prefix-filters": "前缀筛选条件",
@@ -460,7 +509,6 @@
   },
   "ui-text": {
     "metric-select": {
-      "bookmark": "书签",
       "copy-url": "复制 URL",
       "open-explore": "在探索中打开",
       "select-new-metric-tooltip": "移除现有指标并选择新指标"

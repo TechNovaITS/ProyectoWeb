@@ -10,6 +10,11 @@
       "related-metrics-description": "Metrik yang relevan berdasarkan filter label saat ini"
     }
   },
+  "App": {
+    "current-error-title": "",
+    "instances-error-title": "",
+    "loading": "Memuat..."
+  },
   "attribute-explorer": {
     "badge-metric": "Atribut metrik OTel",
     "badge-resource": "Atribut sumber daya OTel",
@@ -78,7 +83,7 @@
     "section-label": "Perincian",
     "select-label": "Pilih",
     "sync-y-axis": {
-      "label": ""
+      "label": "Sinkronkan sumbu y"
     }
   },
   "checkbox-list": {
@@ -164,6 +169,15 @@
     "button": "Berikan umpan balik"
   },
   "gmd-viz-panel": {
+    "enable-exemplars": {
+      "empty": "Tidak ada contoh yang ditemukan untuk metrik ini dalam rentang waktu saat ini",
+      "error": "Contoh tidak dapat dimuat karena kueri gagal",
+      "label": "Tampilkan contoh",
+      "off": "Tampilkan contoh (hanya penghitung dan histogram)",
+      "on": "Menampilkan contoh",
+      "unavailable": "Contoh tidak tersedia untuk metrik ini",
+      "unsupported-panel": "Contoh tidak tersedia untuk jenis panel ini"
+    },
     "native-histogram": "Histogram Asli",
     "variant": {
       "heatmap": "peta panas",
@@ -301,9 +315,13 @@
   },
   "panel-menu": {
     "action": {
+      "add-bookmark": "Tambah bookmark",
+      "add-to-dashboard": "Tambahkan ke dasbor",
       "copy-url": "Salin URL",
       "copy-url-success": "URL disalin ke papan klip",
-      "explore": "Jelajahi"
+      "create-alert": "Buat peringatan",
+      "explore": "Jelajahi",
+      "remove-bookmark": "Hapus bookmark"
     },
     "group": {
       "actions": "Tindakan",
@@ -361,6 +379,7 @@
   },
   "related-logs": {
     "datasource-description": "Beberapa sumber data Loki mungkin tidak ada di dropdown jika butuh waktu lebih dari {{timeout}} detik untuk merespons. Untuk melihat log untuk semua sumber data Loki, coba gunakan Logs Drilldown.",
+    "datasource-discovery-error": "Gagal memuat sumber data untuk log terkait.",
     "datasource-label": "Sumber data log",
     "experimental-note": "Catatan: Log terkait adalah fitur eksperimental.",
     "loading": "Memuat...",
@@ -383,6 +402,12 @@
     "metrics-drilldown": "Drilldown Metrik",
     "open-in-drilldown-tooltip": "Buka di Metrics Drilldown"
   },
+  "shared": {
+    "hooks": {
+      "useCurrentPrometheusDataSourceUid": "",
+      "usePrometheusDataSourceInstances": ""
+    }
+  },
   "show-more-button": {
     "text_other": "Tampilkan {{count}} lainnya ({{current}}/{{total}})"
   },
@@ -401,6 +426,7 @@
       "search-placeholder": "Cari..."
     },
     "filter-type": {
+      "category": "",
       "prefix": "awalan",
       "recent": "terbaru",
       "rule-group": "grup aturan",
@@ -411,6 +437,27 @@
       "search-aria-label": "Cari label",
       "search-placeholder": "Cari..."
     },
+    "metric-category": {
+      "cloud": "",
+      "container": "",
+      "database": "",
+      "deployment": "",
+      "error": "",
+      "exception": "",
+      "frontend": "",
+      "host-os": "",
+      "http": "",
+      "kubernetes": "",
+      "messaging": "",
+      "network": "",
+      "other": "",
+      "process": "",
+      "rpc": "",
+      "runtime": "",
+      "service": "",
+      "telemetry-sdk": "",
+      "url": ""
+    },
     "recent-metrics": {
       "all-time": "Semua waktu",
       "past-interval": "{{interval}} sebelumnya"
@@ -418,6 +465,8 @@
     "section": {
       "bookmarks": "Bookmark",
       "bookmarks-description": "Akses metrik tersimpan Anda untuk referensi cepat",
+      "category-filters": "",
+      "category-filters-description": "",
       "group-by-labels": "Kelompokkan berdasarkan label",
       "group-by-labels-description": "Kelompokkan metrik berdasarkan nilai labelnya",
       "prefix-filters": "Filter awalan",
@@ -460,7 +509,6 @@
   },
   "ui-text": {
     "metric-select": {
-      "bookmark": "Bookmark",
       "copy-url": "Salin URL",
       "open-explore": "Buka di telusuri",
       "select-new-metric-tooltip": "Hapus metrik yang ada dan pilih metrik baru"

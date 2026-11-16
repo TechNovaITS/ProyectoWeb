@@ -10,6 +10,11 @@
       "related-metrics-description": "Метрики, соответствующие текущим фильтрам меток"
     }
   },
+  "App": {
+    "current-error-title": "",
+    "instances-error-title": "",
+    "loading": "Загрузка…"
+  },
   "attribute-explorer": {
     "badge-metric": "Атрибут метрики OTel",
     "badge-resource": "Атрибут ресурса OTel",
@@ -84,7 +89,7 @@
     "section-label": "Разбивка",
     "select-label": "Выбрать",
     "sync-y-axis": {
-      "label": ""
+      "label": "Синхронизировать ось y"
     }
   },
   "checkbox-list": {
@@ -179,6 +184,15 @@
     "button": "Отправить отзыв"
   },
   "gmd-viz-panel": {
+    "enable-exemplars": {
+      "empty": "Для этой метрики в текущем временном диапазоне образцы не найдены",
+      "error": "Не удалось загрузить образцы, поскольку запрос не выполнен",
+      "label": "Показать образцы",
+      "off": "Показать образцы (только счетчики и гистограммы)",
+      "on": "Отображаются образцы",
+      "unavailable": "Для этой метрики образцы недоступны",
+      "unsupported-panel": "Для этого типа панели образцы недоступны"
+    },
     "native-histogram": "Встроенная гистограмма",
     "variant": {
       "heatmap": "тепловая карта",
@@ -316,9 +330,13 @@
   },
   "panel-menu": {
     "action": {
+      "add-bookmark": "Добавить закладку",
+      "add-to-dashboard": "Добавить на дашборд",
       "copy-url": "Копировать URL",
       "copy-url-success": "URL-адрес скопирован в буфер обмена",
-      "explore": "Explore"
+      "create-alert": "Создать оповещение",
+      "explore": "Explore",
+      "remove-bookmark": "Удалить закладку"
     },
     "group": {
       "actions": "Действия",
@@ -382,6 +400,7 @@
   },
   "related-logs": {
     "datasource-description": "В раскрывающемся списке могут отсутствовать некоторые источники данных Loki, если их время ответа превышает {{timeout}} сек. Для просмотра журналов всех источников данных Loki попробуйте использовать приложение Logs Drilldown.",
+    "datasource-discovery-error": "Не удалось загрузить источники данных для связанных логов.",
     "datasource-label": "Источник данных журналов",
     "experimental-note": "Примечание. Связанные журналы — это экспериментальная функция.",
     "loading": "Загрузка…",
@@ -404,6 +423,12 @@
     "metrics-drilldown": "Metrics Drilldown",
     "open-in-drilldown-tooltip": "Откройте Metrics Drilldown"
   },
+  "shared": {
+    "hooks": {
+      "useCurrentPrometheusDataSourceUid": "",
+      "usePrometheusDataSourceInstances": ""
+    }
+  },
   "show-more-button": {
     "text_one": "Показать еще {{count}} ({{current}}/{{total}})",
     "text_few": "Показать еще {{count}} ({{current}}/{{total}})",
@@ -425,6 +450,7 @@
       "search-placeholder": "Поиск…"
     },
     "filter-type": {
+      "category": "",
       "prefix": "префикс",
       "recent": "недавние",
       "rule-group": "группа правил",
@@ -435,6 +461,27 @@
       "search-aria-label": "Поиск меток",
       "search-placeholder": "Поиск…"
     },
+    "metric-category": {
+      "cloud": "",
+      "container": "",
+      "database": "",
+      "deployment": "",
+      "error": "",
+      "exception": "",
+      "frontend": "",
+      "host-os": "",
+      "http": "",
+      "kubernetes": "",
+      "messaging": "",
+      "network": "",
+      "other": "",
+      "process": "",
+      "rpc": "",
+      "runtime": "",
+      "service": "",
+      "telemetry-sdk": "",
+      "url": ""
+    },
     "recent-metrics": {
       "all-time": "Все время",
       "past-interval": "Последние {{interval}}"
@@ -442,6 +489,8 @@
     "section": {
       "bookmarks": "Закладки",
       "bookmarks-description": "Используйте сохраненные метрики для быстрого просмотра информации",
+      "category-filters": "",
+      "category-filters-description": "",
       "group-by-labels": "Группировать по меткам",
       "group-by-labels-description": "Группировать метрики по значениям меток",
       "prefix-filters": "Фильтры префиксов",
@@ -490,7 +539,6 @@
   },
   "ui-text": {
     "metric-select": {
-      "bookmark": "Закладка",
       "copy-url": "Копировать URL",
       "open-explore": "Открыть в Explore",
       "select-new-metric-tooltip": "Удалите существующую метрику и выберите новую"

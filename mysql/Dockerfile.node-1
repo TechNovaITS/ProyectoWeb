@@ -1,4 +1,0 @@
-FROM mysql:8.0
-
-# La configuración es propia del primer nodo; permisos legibles evitan fallos al arrancar mysqld.
-COPY nodo-1.cnf /etc/mysql/conf.d/replicacion.cnf
