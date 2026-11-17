@@ -33,10 +33,11 @@
             <h1 class="page-title">Alertas</h1>
         </div>
         <div class="header-actions">
-            <button 
-            class="btn-primary">
+            <a 
+            class="btn-primary"
+            href="{{ route('alertas.informesindex') }}">
                 <i class="fa-solid fa-plus"></i> Informes
-            </button>
+            </a>
             <a 
             class="btn-primary"
             href="{{ route('alertas.progreso') }}">

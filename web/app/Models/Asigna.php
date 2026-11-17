@@ -8,6 +8,7 @@ class Asigna extends Model
 {
     protected $table = "asigna";
     protected $fillable = ['ci_usuario', 'id_aleta'];
+    protected $primaryKey = 'id_alerta';
 
     public function belongstoAlerta()
     {

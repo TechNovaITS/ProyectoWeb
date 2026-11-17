@@ -149,3 +149,23 @@
         margin-bottom: 16px;
     }
 }
+
+.spoiler-caja {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 10px 14px;
+    background-color: #f9f9f9;
+    font-family: sans-serif;
+  }
+
+  .spoiler-caja summary {
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none; /* Evita que se seleccione el texto al hacer doble clic */
+  }
+
+  .spoiler-contenido {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e0e0e0;
+  }

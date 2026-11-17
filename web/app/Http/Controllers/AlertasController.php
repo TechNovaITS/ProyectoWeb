@@ -47,11 +47,15 @@ class AlertasController extends Controller
     }
     public function progreso()
     {
-        $alertas = $alertas = Alerta::join('asigna', 'alertas.id', '=', 'asigna.id_alerta')
-                                            ->where('asigna.ci_usuario', auth()->user()->ci)
-                                            ->where('alertas.estado_seguimiento', 'En Progreso')
-                                            ->select('alertas.*') // Evita que se solapen columnas si hay nombres repetidos
-                                            ->get();
-        return view('alertas-progreso', compact('alertas'));
+        return view('alertas-progreso');
+    }
+    public function update(Alerta $alerta)
+    {
+        if (Asigna::where('id_alerta', $alerta->id)->where('ci_usuario', auth()->user()->ci)->doesntExist()) {
+            return redirect()->back()->withErrors('No tienes permiso para cerrar esta alerta.');
+        }
+        $alerta->estado_seguimiento = 'Cerrado';
+        $alerta->save();
+        return redirect()->route('alertas.progreso')->with('success', 'Alerta cerrada correctamente.');
     }
 }

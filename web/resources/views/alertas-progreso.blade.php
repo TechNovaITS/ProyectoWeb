@@ -23,14 +23,14 @@
     <!-- Cabecera superior y migas de pan -->
     <div class="content-header-top">
         <div class="breadcrumbs">
-            <span>Administración</span> / <span class="current">Alertas</span>
+            <span>Administración</span> /<span>Alertas</span> / <span class="current">En Progreso</span>
         </div>    
     </div>
 
     <!-- Título de la sección -->
      <div class="content-header">
         <div class="page-title-container">
-            <h1 class="page-title">Alertas</h1>
+            <h1 class="page-title">Alertas en Progreso</h1>
         </div>
         <div class="header-actions">
             <a 
@@ -41,5 +41,7 @@
         </div>
      </div>
 </div>
+@livewire('alerta-progreso-table')
+@include('modals.modal-cerrar-alerta')
 @endsection
 <link rel="stylesheet" href="{{ asset('departamentos.css') }}">
