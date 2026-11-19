@@ -40,9 +40,8 @@
                         id="email" 
                         name="email" 
                         class="input-control" 
-                        placeholder="tu@cutcsa.com" 
-                        pattern=".+@cutcsa\.com"
-                        title="Por favor, introduce un correo válido de cutcsa.com" 
+                        placeholder="Ingresa un correo electrónico"  
+                        title="Por favor, introduce un correo válido" 
                         value="{{ old('email') }}" 
                         required 
                         autofocus

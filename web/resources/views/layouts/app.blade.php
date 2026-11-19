@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Sentinel Ops - Control Central')</title>
+    <title>@yield('title', 'Sentinel - Control Central')</title>
     <!-- FontAwesome para los iconos -->
     <link rel="stylesheet" 
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
@@ -25,10 +25,11 @@
         <aside class="sidebar" id="sidebar">
             <div class="sidebar-header">
                 <div class="sidebar-logo-icon">
-                    <i class="fa-solid fa-shield-halved"></i>
+                    <img src="{{ asset('sentinel.png') }}" alt="Logo de sentinel" >
+
                 </div>
                 <div class="sidebar-brand">
-                    <h1>Sentinel Ops</h1>
+                    <h1>Sentinel</h1>
                     <span>CONTROL CENTRAL</span>
                 </div>
                 <!-- Botón de cierre (X) visible solo en móviles -->
@@ -59,7 +60,7 @@
                         @endif
                     </li>
                     <li>
-                        @if(auth()->user()->rol === 'Administrador')
+                        @if(auth()->user()->rol === 'Administrador' or auth()->user()->rol === 'Recovery')
                             <a href="{{ route('usuarios.index') }}" class="{{ request()->routeIs('usuarios.*') ? 'active' : '' }}">
                                 <i class="fa-solid fa-user"></i> Usuarios
                             </a>

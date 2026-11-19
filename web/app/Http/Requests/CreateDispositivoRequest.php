@@ -22,10 +22,11 @@ class CreateDispositivoRequest extends FormRequest
      */
     public function rules(): array
     {
+        $conexion = (new Dispositivos())->getConnectionName();
         return [
-            'nombre' => ['required', 'string', 'max:100', 'unique:dispositivos,nombre'],
+            'nombre' => ['required', 'string', 'max:100', "unique:{$conexion}.dispositivos,nombre"],
             'ip' => ['required', 'string', 'max:45'],
-            'dashboard_id' => ['required', 'exists:dashboards,id'],
+            'dashboard_id' => ["required", "exists:{$conexion}.dashboards,id"],
         ];
     }
     public function messages(): array

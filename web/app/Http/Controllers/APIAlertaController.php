@@ -14,6 +14,7 @@ class APIAlertaController extends Controller
      */
     public function recibirAlerta(Request $request)
     {
+        
         file_put_contents(
             storage_path('app/alerta_recibida.txt'),
             $request->getContent() . PHP_EOL,
@@ -25,7 +26,7 @@ class APIAlertaController extends Controller
         $nombreInstancia = $data['alerts'][0]['labels']['instance'] ?? 'Desconocida';
 
         // 1. Buscamos la instancia por su nombre. Si no existe, la crea y nos devuelve el objeto.
-         $instance = Dispositivo::where('nombre', $nombreInstancia)->first();
+         $instance = Dispositivo::on('api_web')->where('nombre', $nombreInstancia)->first();
 
         // Extraes solo lo importante navegando por el JSON anidado
         $alertaData = [

@@ -6,6 +6,7 @@ use App\Enums\UserRole;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
+use App\Models\Departamento;
 
 class CreateUsuarioRequest extends FormRequest
 {
@@ -24,12 +25,14 @@ class CreateUsuarioRequest extends FormRequest
      */
     public function rules(): array
     {
+        $conexion = (new Departamento())->getConnectionName();
         return [
-            'ci' => 'required|integer|unique:usuarios',
-            'email' => 'required|email:rfc,dns|ends_with:@cutcsa.com|unique:usuarios',
+            'ci' => 'required|integer|min:0|max:99999999|unique:usuarios',
+            'email' => 'required|email:rfc,dns|unique:usuarios',
             'password' => ['required', 'nullable', 'string', 'regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/'],
             'rol' => ['required', Rule::enum(UserRole::class)],
-            'id_departamento' => 'required|integer|exists:departamentos,id',
+            'id_departamento' => ['required','integer',"exists:{$conexion}.departamentos,id",
+],
         ];
     }
     public function messages()
@@ -38,6 +41,8 @@ class CreateUsuarioRequest extends FormRequest
             'ci.required' => 'El campo CI es obligatorio.',
             'ci.integer' => 'El campo CI debe ser un número entero.',
             'ci.unique' => 'El CI ya está registrado.',
+            'ci.min' => 'El campo CI debe ser un número positivo.',
+            'ci.max' => 'El campo CI no puede ser mayor a 99999999.',
             'email.required' => 'El campo email es obligatorio.',
             'email.email' => 'El campo email debe ser una dirección de correo válida.',
             'email.unique' => 'El email ya está registrado.',

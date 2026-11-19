@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Asigna extends Model
+class Asigna extends BaseModel
 {
     protected $table = "asigna";
     protected $fillable = ['ci_usuario', 'id_aleta'];

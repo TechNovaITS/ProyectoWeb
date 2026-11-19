@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Informe extends Model
+class Informe extends BaseModel
 {
     use SoftDeletes;
     protected $table = 'informes';

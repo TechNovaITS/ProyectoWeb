@@ -23,7 +23,7 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'email' => 'required|email|regex:/^[\w.-]+@cutcsa\.com$/i',
+            'email' => 'required|email:rfc,dns',
             'password' => 'required|string|min:8|regex:/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/',
         ];
     }

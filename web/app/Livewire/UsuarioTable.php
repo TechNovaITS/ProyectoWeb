@@ -38,14 +38,26 @@ class UsuarioTable extends Component
 
     public function render()
     {
-        $usuarios = Usuario::query()
-            ->where('rol', '!=', 'Administrador')
-            ->where('rol', '!=', 'Recovery')
-            ->when($this->search, function ($query) {
-                $query->where('email', 'like', '%' . $this->search . '%');
-            })
-            ->orderBy($this->sortField, $this->sortDirection)
-            ->paginate($this->perPage);
+        if (auth()->user()->rol === 'Administrador') {   
+            $usuarios = Usuario::query()
+                ->where('rol', '!=', 'Administrador')
+                ->where('rol', '!=', 'Recovery')
+                ->when($this->search, function ($query) {
+                    $query->where('email', 'like', '%' . $this->search . '%');
+                })
+                ->orderBy($this->sortField, $this->sortDirection)
+                ->paginate($this->perPage);
+        } else if (auth()->user()->rol === 'Recovery') {
+            $usuarios = Usuario::query()
+                ->where('rol', '!=', 'Recovery')
+                ->where('rol', '!=', 'Operador')
+                ->where('rol', '!=', 'Auditor')
+                ->when($this->search, function ($query) {
+                    $query->where('email', 'like', '%' . $this->search . '%');
+                })
+                ->orderBy($this->sortField, $this->sortDirection)
+                ->paginate($this->perPage);
+        }
 
         return view('livewire.usuario-table', [
             'usuarios' => $usuarios,

@@ -22,8 +22,9 @@ class CreateDashboardRequest extends FormRequest
      */
     public function rules(): array
     {
+        $conexion = (new Dashboard())->getConnectionName();
         return [
-            'nombre' => 'required|string|max:100',
+            'nombre' => "required|string|max:100|unique:{$conexion}.dashboards,nombre",
             'url' => 'required|string|max:255|url',
         ];
     }
@@ -33,6 +34,7 @@ class CreateDashboardRequest extends FormRequest
             'nombre.required' => 'El nombre del dashboard es obligatorio.',
             'nombre.string' => 'El nombre del dashboard debe ser una cadena de texto.',
             'nombre.max' => 'El nombre del dashboard no puede tener más de 100 caracteres.',
+            'nombre.unique' => 'El nombre del dashboard ya está en uso.',
             'url.required' => 'La URL del dashboard es obligatoria.',
             'url.string' => 'La URL del dashboard debe ser una cadena de texto.',
             'url.max' => 'La URL del dashboard no puede tener más de 255 caracteres.',

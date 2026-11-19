@@ -36,7 +36,7 @@
             <button 
             data-bs-toggle="modal" data-bs-target="#crearDashboardModal"
             class="btn-primary">
-                <i class="fa-solid fa-plus"></i> Crear dashboard
+                <i class="fa-solid fa-chart-line"></i> Crear dashboard
             </button>
         </div>
      </div>

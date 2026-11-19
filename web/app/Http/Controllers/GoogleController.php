@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\Usuario;
+use App\Models\AuthUsuario;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 class GoogleController extends Controller
@@ -20,7 +20,7 @@ class GoogleController extends Controller
     $googleUser = Socialite::driver('google')->user();
 
     // Buscar si el usuario ya existe en la base de datos por su email
-    $user = Usuario::where('email', $googleUser->getEmail())->first();
+    $user = AuthUsuario::where('email', $googleUser->getEmail())->first();
 
     // Si el usuario no existe, impedir el acceso
     if (!$user) {

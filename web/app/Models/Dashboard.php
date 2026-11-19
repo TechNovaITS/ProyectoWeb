@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Dashboard extends Model
+class Dashboard extends BaseModel
 {
     protected $table = 'dashboards';
     protected $fillable = ['nombre', 'url'];

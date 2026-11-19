@@ -7,7 +7,7 @@
     {{-- Encabezado superior --}}
     <div class="page-header">
         <div class="breadcrumbs">
-            <span>Administración</span> / <span>Dispositivos</span> / <span class="current">{{ isset($dispositivo) ? 'Editar dispositivo' : 'nuevo dispositivo' }}</span>
+            <span>Administración</span> / <span>Dispositivos</span> / <span class="current">{{ isset($dispositivo) ? 'Editar dispositivo' : 'Nuevo dispositivo' }}</span>
             <h1 class="page-title">Gestión de dispositivos</h1>
         </div>
         <a href="{{ route('dispositivos.index') }}" class="btn-volver">
@@ -24,7 +24,7 @@
     <div class="card-user-form">
         <div class="card-header-custom">
             <div class="user-icon-box">
-                <i class="fas fa-user-plus"></i>
+                <i class="fas fa-desktop"></i>
             </div>
             <div>
                 <h3>Datos del dispositivo</h3>
@@ -91,7 +91,7 @@
             <div class="form-actions">
                 <button type='reset' class="btn-reiniciar">Reiniciar</button>
                 <button type="submit" class="btn-submit">
-                    <i class="fas fa-user-plus"></i> {{ isset($dispositivo) ? 'Actualizar dispositivo' : 'Crear dispositivo' }}
+                    <i class="fas fa-desktop"></i> {{ isset($dispositivo) ? 'Actualizar dispositivo' : 'Crear dispositivo' }}
                 </button>
             </div>
         </form>

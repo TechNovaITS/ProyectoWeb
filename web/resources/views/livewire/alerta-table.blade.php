@@ -83,6 +83,7 @@
                             <!-- Botones de Acción -->
                             <td class="py-3 px-4 text-end">
                                 <div class="d-inline-flex gap-2">
+                                    @if(auth()->user()->rol === 'Administrador')
                                     <button type="button" 
                                             class="btn btn-outline-danger btn-sm px-3 py-1 fw-semibold" 
                                             data-bs-toggle="modal" 
@@ -93,6 +94,7 @@
                                             >
                                         Eliminar
                                     </button>
+                                    @endif
                                     <a 
                                         class="btn btn-outline-secondary btn-sm px-3 py-1 fw-semibold" 
                                         href="{{ route('alertas.asignar', $alerta->id) }}"

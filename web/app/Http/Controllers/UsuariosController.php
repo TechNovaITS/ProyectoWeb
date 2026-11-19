@@ -27,7 +27,7 @@ class UsuariosController extends Controller
         if (($usuario->rol === 'Administrador' || $usuario->rol ==='Recovery') && auth()->user()->rol === 'Administrador') {
             return redirect()->route('usuarios.index')->withErrors('Solo puedes editar usuarios con el rol esperado.');
         }
-        else if (($usuario->rol === 'Operador' || $usuario->rol ==='Recovery') && auth()->user()->rol === 'Recovery') {
+        else if (($usuario->rol === 'Operador' || $usuario->rol ==='Auditor' || $usuario->rol ==='Recovery') && auth()->user()->rol === 'Recovery') {
             return redirect()->route('usuarios.index')->withErrors('Solo puedes editar usuarios Administradores.');
         }
         $departamentos = Departamento::orderBy('nom_departamento', 'asc')->get();
@@ -38,7 +38,7 @@ class UsuariosController extends Controller
         if (($usuario->rol === 'Administrador' || $usuario->rol ==='Recovery') && auth()->user()->rol === 'Administrador') {
             return redirect()->route('usuarios.index')->withErrors('Solo puedes editar usuarios con el rol esperado.');
         }
-        else if (($usuario->rol === 'Operador' || $usuario->rol ==='Recovery') && auth()->user()->rol === 'Recovery') {
+        else if (($usuario->rol === 'Operador' || $usuario->rol ==='Auditor' || $usuario->rol ==='Recovery') && auth()->user()->rol === 'Recovery') {
             return redirect()->route('usuarios.index')->withErrors('Solo puedes editar usuarios Administradores.');
         }
         // Lógica para actualizar un usuario existente

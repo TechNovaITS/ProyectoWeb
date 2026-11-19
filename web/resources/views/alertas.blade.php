@@ -23,7 +23,7 @@
     <!-- Cabecera superior y migas de pan -->
     <div class="content-header-top">
         <div class="breadcrumbs">
-            <span>Administración</span> / <span class="current">Alertas</span>
+            <span> {{ auth()->user()->rol === 'Administrador' ? 'Administración' : 'Operador' }}</span> / <span class="current">Alertas</span>
         </div>    
     </div>
 
@@ -36,12 +36,12 @@
             <a 
             class="btn-primary"
             href="{{ route('alertas.informesindex') }}">
-                <i class="fa-solid fa-plus"></i> Informes
+                <i class="fa-solid fa-file-lines"></i> Informes
             </a>
             <a 
             class="btn-primary"
             href="{{ route('alertas.progreso') }}">
-                <i class="fa-solid fa-plus"></i> Alertas En Progreso
+                <i class="fa-solid fa-bell"></i> Alertas En Progreso
             </a>
         </div>
      </div>

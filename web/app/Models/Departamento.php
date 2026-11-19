@@ -3,7 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-class Departamento extends Model
+
+class Departamento extends BaseModel
 {
     protected $table = 'departamentos';
     protected $fillable = ['nom_departamento'];

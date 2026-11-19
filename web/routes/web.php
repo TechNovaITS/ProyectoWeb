@@ -15,12 +15,11 @@ Route::get('/', function () {
    if (!Auth::check()) {
         return redirect()->route('login');
     } else {
-        
         return match (auth()->user()->rol) {
         'Administrador'   => redirect()->route('alertas.index'),
-        'Operador'  => redirect()->route('editor.dashboard'),
+        'Operador'  => redirect()->route('alertas.index'),
         'Auditor' => redirect()->route('cliente.home'),
-        'Recovery'   => redirect()->route('home'),
+        'Recovery'   => redirect()->route('usuarios.index'),
     };
     }
 });
@@ -38,39 +37,36 @@ Route::post('/administracion/departamentos', [DepartamentosController::class, 's
 Route::put('/administracion/departamentos/{departamento}', [DepartamentosController::class, 'update'])->name('departamentos.update')->middleware('auth', 'rol:Administrador');
 Route::delete('/administracion/departamentos/{departamento}', [DepartamentosController::class, 'destroy'])->name('departamentos.destroy')->middleware('auth', 'rol:Administrador');
 // Usuarios
-Route::get('/administracion/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index')->middleware('auth', 'rol:Administrador');
-Route::get('/administracion/usuarios/nuevo-usuario', [UsuariosController::class, 'formCreate'])->name('usuarios.create')->middleware('auth', 'rol:Administrador');
-Route::post('/administracion/usuarios', [UsuariosController::class, 'store'])->name('usuarios.store')->middleware('auth', 'rol:Administrador');
-Route::get('/administracion/usuarios/{usuario}/editar', [UsuariosController::class, 'formUpdate'])->name('usuarios.update')->middleware('auth', 'rol:Administrador');
-Route::put('/administracion/usuarios/{usuario}', [UsuariosController::class, 'update'])->name('usuarios.updated')->middleware('auth', 'rol:Administrador');
-Route::delete('/administracion/usuarios/{usuario}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy')->middleware('auth', 'rol:Administrador');
+Route::get('/administracion/usuarios', [UsuariosController::class, 'index'])->name('usuarios.index')->middleware('auth', 'rol:Administrador,Recovery');
+Route::get('/administracion/usuarios/nuevo-usuario', [UsuariosController::class, 'formCreate'])->name('usuarios.create')->middleware('auth', 'rol:Administrador,Recovery');
+Route::post('/administracion/usuarios', [UsuariosController::class, 'store'])->name('usuarios.store')->middleware('auth', 'rol:Administrador,Recovery');
+Route::get('/administracion/usuarios/{usuario}/editar', [UsuariosController::class, 'formUpdate'])->name('usuarios.update')->middleware('auth', 'rol:Administrador,Recovery');
+Route::put('/administracion/usuarios/{usuario}', [UsuariosController::class, 'update'])->name('usuarios.updated')->middleware('auth', 'rol:Administrador,Recovery');
+Route::delete('/administracion/usuarios/{usuario}', [UsuariosController::class, 'destroy'])->name('usuarios.destroy')->middleware('auth', 'rol:Administrador,Recovery');
 // Dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboards.index')->middleware('auth', 'rol:Administrador');
 Route::post('/dashboard', [DashboardController::class, 'store'])->name('dashboards.store')->middleware('auth', 'rol:Administrador');
 Route::put('/dashboard/{dashboard}', [DashboardController::class, 'update'])->name('dashboards.update')->middleware('auth', 'rol:Administrador');
 Route::delete('/dashboard/{dashboard}', [DashboardController::class, 'destroy'])->name('dashboards.destroy')->middleware('auth', 'rol:Administrador');
 // Dispositivos
-Route::get('/administracion/dispositivos', [DispositivosController::class, 'index'])->name('dispositivos.index')->middleware('auth', 'rol:Administrador');
-Route::get('/administracion/dispositivos/nuevo-dispositivo', [DispositivosController::class, 'formCreate'])->name('dispositivos.create')->middleware('auth', 'rol:Administrador');
+Route::get('/administracion/dispositivos', [DispositivosController::class, 'index'])->name('dispositivos.index')->middleware('auth', 'rol:Administrador,Operador');
+Route::get('/administracion/dispositivos/nuevo-dispositivo', [DispositivosController::class, 'formCreate'])->name('dispositivos.create')->middleware('auth', 'rol:Administrador,Opera');
 Route::post('/administracion/dispositivos', [DispositivosController::class, 'store'])->name('dispositivos.store')->middleware('auth', 'rol:Administrador');
 Route::get('/administracion/dispositivos/{dispositivo}/editar', [DispositivosController::class, 'formUpdate'])->name('dispositivos.update')->middleware('auth', 'rol:Administrador');
 Route::put('/administracion/dispositivos/{dispositivo}', [DispositivosController::class, 'update'])->name('dispositivos.updated')->middleware('auth', 'rol:Administrador');
 Route::delete('/administracion/dispositivos/{dispositivo}', [DispositivosController::class, 'destroy'])->name('dispositivos.destroy')->middleware('auth', 'rol:Administrador');
-Route::get('/administracion/dispositivos/{dispositivo}', [DispositivosController::class, 'show'])->name('dispositivos.show')->middleware('auth', 'rol:Administrador');
+Route::get('/administracion/dispositivos/{dispositivo}', [DispositivosController::class, 'show'])->name('dispositivos.show')->middleware('auth', 'rol:Administrador,Operador');
 // Alertas
-Route::get('/administracion/alertas', [AlertasController::class, 'index'])->name('alertas.index')->middleware('auth', 'rol:Administrador');
+Route::get('/administracion/alertas', [AlertasController::class, 'index'])->name('alertas.index')->middleware('auth', 'rol:Administrador,Operador');
 Route::delete('/administracion/alertas/{alerta}', [AlertasController::class, 'destroy'])->name('alertas.destroy')->middleware('auth', 'rol:Administrador');
-Route::get('/administracion/alertas/{alerta}/asignar', [AlertasController::class, 'asignar'])->name('alertas.asignar')->middleware('auth', 'rol:Administrador');
-Route::post('/administracion/alertas/{alerta}', [AlertasController::class, 'store'])->name('alertas.store')->middleware('auth', 'rol:Administrador');
-Route::get('/administracion/alertas/progreso', [AlertasController::class, 'progreso'])->name('alertas.progreso')->middleware('auth', 'rol:Administrador');
-Route::put('/administracion/alertas/{alerta}', [AlertasController::class, 'update'])->name('alertas.update')->middleware('auth', 'rol:Administrador');
+Route::get('/administracion/alertas/{alerta}/asignar', [AlertasController::class, 'asignar'])->name('alertas.asignar')->middleware('auth', 'rol:Administrador,Operador');
+Route::post('/administracion/alertas/{alerta}', [AlertasController::class, 'store'])->name('alertas.store')->middleware('auth', 'rol:Administrador,Operador');
+Route::get('/administracion/alertas/progreso', [AlertasController::class, 'progreso'])->name('alertas.progreso')->middleware('auth', 'rol:Administrador,Operador');
+Route::put('/administracion/alertas/{alerta}', [AlertasController::class, 'update'])->name('alertas.update')->middleware('auth', 'rol:Administrador,Operador');
 // Informes
-Route::get('/administracion/alertas/informes/{alerta}/crear', [InformesController::class, 'formCreate'])->name('alertas.create')->middleware('auth', 'rol:Administrador');
-Route::post('/administracion/informes/{asigna}', [InformesController::class, 'store'])->name('informe.store')->middleware('auth', 'rol:Administrador');
-Route::get('/administracion/informes', [InformesController::class, 'index'])->name('alertas.informesindex')->middleware('auth', 'rol:Administrador');
-Route::get('/administracion/informes/{informe}/editar', [InformesController::class, 'formUpdate'])->name('alertas.informeupdate')->middleware('auth', 'rol:Administrador');
-Route::delete('/administracion/informes/{informe}', [InformesController::class, 'destroy'])->name('informes.destroy')->middleware('auth', 'rol:Administrador');
-Route::put('/administracion/informes/{informe}', [InformesController::class, 'update'])->name('informe.updated')->middleware('auth', 'rol:Administrador');
-
-// Operador Routes
-Route::get('/operador/alertas', [AlertasController::class, 'operadorDashboard'])->name('alertas.operador.index')->middleware('auth', 'rol:Operador');
+Route::get('/administracion/alertas/informes/{alerta}/crear', [InformesController::class, 'formCreate'])->name('alertas.create')->middleware('auth', 'rol:Administrador,Operador');
+Route::post('/administracion/informes/{asigna}', [InformesController::class, 'store'])->name('informe.store')->middleware('auth', 'rol:Administrador,Operador');
+Route::get('/administracion/informes', [InformesController::class, 'index'])->name('alertas.informesindex')->middleware('auth', 'rol:Administrador,Operador');
+Route::get('/administracion/informes/{informe}/editar', [InformesController::class, 'formUpdate'])->name('alertas.informeupdate')->middleware('auth', 'rol:Administrador,Operador');
+Route::delete('/administracion/informes/{informe}', [InformesController::class, 'destroy'])->name('informes.destroy')->middleware('auth', 'rol:Administrador,Operador');
+Route::put('/administracion/informes/{informe}', [InformesController::class, 'update'])->name('informe.updated')->middleware('auth', 'rol:Administrador,Operador');

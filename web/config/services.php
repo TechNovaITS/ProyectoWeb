@@ -39,4 +39,7 @@ return [
     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
     'redirect' => env('GOOGLE_REDIRECT_URI'),
 ],
+    'api' => [
+    'api_token' => env('API_TOKEN_SECRET'),
+],
 ];

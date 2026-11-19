@@ -39,14 +39,26 @@ class AlertaTable extends Component
 
     public function render()
     {
-        $alertas = Alerta::query()
+        if (auth()->user()->rol === 'Administrador') {
+            $alertas = Alerta::query()
             ->where('estado_seguimiento', 'Pendiente')
             ->when($this->search, function ($query) {
-                $query->where('alerta', 'like', '%' . $this->search . '%');
-                
+                $query->where('alerta', 'like', '%' . $this->search . '%'); 
             })
             ->orderBy($this->sortField, $this->sortDirection)
             ->paginate($this->perPage);
+        } else {
+            $departamento = auth()->user()->belongstoDepartamento->nom_departamento;
+            $alertas = Alerta::query()
+            ->where('estado_seguimiento', 'Pendiente')
+            ->where('departamento', $departamento)
+            ->when($this->search, function ($query) {
+                $query->where('alerta', 'like', '%' . $this->search . '%'); 
+            })
+            ->orderBy($this->sortField, $this->sortDirection)
+            ->paginate($this->perPage);
+        }
+        
 
         return view('livewire.alerta-table', [
             'alertas' => $alertas,

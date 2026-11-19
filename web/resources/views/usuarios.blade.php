@@ -1,5 +1,4 @@
 @extends('layouts.app')
-{{-- resources/views/dashboard.blade.php (o donde quieras usarla) --}}
 
 @section('title', 'Gestión de Usuarios - Sentinel Ops')
 
@@ -24,12 +23,12 @@
     <!-- Cabecera superior y migas de pan -->
     <div class="content-header-top">
         <div class="breadcrumbs">
-            <span>Administración</span> / <span class="current">Usuarios</span>
+             <span>{{ (auth()->user()->rol === 'Administrador') ? 'Administración' : 'Recovery' }}</span> / <span class="current">Usuarios</span>
         </div>    
     </div>
     <div class="content-header">
         <div class="page-title-container">
-            <h1 class="page-title">Usuarios</h1>
+            <h1 class="page-title">Usuarios {{ (auth()->user()->rol === 'Recovery') ? 'Administrador' : '' }}</h1>
         </div>
         <div class="header-actions">
             <a 

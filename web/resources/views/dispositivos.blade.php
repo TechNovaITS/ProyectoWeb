@@ -24,20 +24,22 @@
     <!-- Cabecera superior y migas de pan -->
     <div class="content-header-top">
         <div class="breadcrumbs">
-            <span>Administración</span> / <span class="current">Dispositivos</span>
+            <span> {{ auth()->user()->rol === 'Administrador' ? 'Administración' : 'Operador' }}</span> / <span class="current">Dispositivos</span>
         </div>    
     </div>
     <div class="content-header">
         <div class="page-title-container">
             <h1 class="page-title">Dispositivos</h1>
         </div>
+        @if (auth()->user()->rol === 'Administrador')
         <div class="header-actions">
             <a 
             class="btn-primary"
             href="{{ route('dispositivos.create') }}">
-                <i class="fa-solid fa-device"></i> Crear dispositivo
+                <i class="fa-solid fa-server"></i> Crear dispositivo
             </a>
         </div>
+        @endif
      </div>
 </div>
 <livewire:dispositivo-table />

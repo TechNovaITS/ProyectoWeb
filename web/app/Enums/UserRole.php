@@ -6,5 +6,6 @@ enum UserRole: string
 {
     case Auditor = 'Auditor';
     case Operador = 'Operador';
+    case Administrador = 'Administrador';
     
 }

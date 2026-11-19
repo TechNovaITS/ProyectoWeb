@@ -23,11 +23,12 @@ class UpdateDispositivoRequest extends FormRequest
      */
     public function rules(): array
     {
+        $conexion = (new Dispositivos())->getConnectionName();
         $dispositivo = $this->route('dispositivo'); // Obtiene el dispositivo de la ruta
         return [
             'nombre' => ['required', 'string', 'max:100', Rule::unique('dispositivos', 'nombre')->ignore($dispositivo->id, 'id')],
             'ip' => ['required', 'string', 'max:45'],
-            'dashboard_id' => 'required|exists:dashboards,id',
+            'dashboard_id' => "required|exists:{$conexion}.dashboards,id",
         ];
     }
 }

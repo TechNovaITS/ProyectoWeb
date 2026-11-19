@@ -1,7 +1,7 @@
 <?php
 
 use App\Models\User;
-use App\Models\Usuario;
+use App\Models\AuthUsuario;
 
 return [
 
@@ -79,7 +79,7 @@ return [
         ],
         'usuarios' => [
             'driver' => 'eloquent',
-            'model' => Usuario::class,
+            'model' => AuthUsuario::class,
         ],
 
         // 'users' => [

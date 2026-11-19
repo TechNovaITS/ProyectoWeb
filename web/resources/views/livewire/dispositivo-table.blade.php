@@ -74,8 +74,11 @@
                         <tr>
                             <!-- ID -->
                             <td class="py-3 px-4 fw-medium">
-                                <a href="{{ route('dispositivos.show', $dispositivo->id) }}">
+                                @if (auth()->user()->rol === 'Administrador')<a href="{{ route('dispositivos.show', $dispositivo->id) }}">
                                 {{ str_pad($dispositivo->id, 2, '0', STR_PAD_LEFT) }}</a>
+                                @else
+                                {{ str_pad($dispositivo->id, 2, '0', STR_PAD_LEFT) }}
+                                @endif
                             </td>
                             <!-- Nombre -->
                             <td class="py-3 px-4 text-dark">
@@ -96,12 +99,13 @@
                             <!-- Botones de Acción -->
                             <td class="py-3 px-4 text-end">
                                 <div class="d-inline-flex gap-2">
-                                    <button type="button" 
+                                    @if (auth()->user()->rol === 'Administrador')
+                                    <a type="button" 
                                             class="btn btn-outline-secondary btn-sm px-3 py-1 fw-semibold" 
-                                            onclick="window.location.href='{{ route('dispositivos.update', $dispositivo->id) }}'"
+                                            href="{{ route('dispositivos.update', $dispositivo->id) }}"
                                             >
                                         Editar
-                                    </button>
+                                    </a>
                                     <button type="button" 
                                             class="btn btn-outline-danger btn-sm px-3 py-1 fw-semibold" 
                                             data-bs-toggle="modal" 
@@ -112,6 +116,14 @@
                                             >
                                         Eliminar
                                     </button>
+                                    @else
+                                    <a type="button" 
+                                            class="btn btn-outline-secondary btn-sm px-3 py-1 fw-semibold" 
+                                            href="{{ route('dispositivos.show', $dispositivo->id) }}"
+                                            >
+                                        Ver
+                                    </a>
+                                    @endif
                                 </div>
                             </td>
                         </tr>

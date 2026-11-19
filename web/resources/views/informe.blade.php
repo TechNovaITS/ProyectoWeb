@@ -39,7 +39,7 @@
             @else
             href="{{ route('alertas.progreso') }}"
             @endif>
-                <i class="fa-solid fa-device"></i> Volver Atras
+                <i class="fa-solid fa-"></i> Volver Atras
             </a>
         </div>
      </div>
@@ -54,7 +54,7 @@
     <div class="card-user-form">
         <div class="card-header-custom">
             <div class="user-icon-box">
-                <i class="fas fa-user-plus"></i>
+                <i class="fas fa-file-lines"></i>
             </div>
             <div>
                 <h3>Datos del Informe</h3>
@@ -97,7 +97,7 @@
             <div class="form-actions">
                 <button type='reset' class="btn-reiniciar">Reiniciar</button>
                 <button type="submit" class="btn-submit">
-                    <i class="fas fa-user-plus"></i> {{ isset($informe) ? 'Actualizar informe' : 'Crear informe' }}
+                    <i class="fas fa-file-lines"></i> {{ isset($informe) ? 'Actualizar informe' : 'Crear informe' }}
                 </button>
             </div>
         </form>

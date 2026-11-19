@@ -7,7 +7,7 @@
     {{-- Encabezado superior --}}
     <div class="page-header">
         <div class="breadcrumbs">
-            <span>Administración</span> / <span>Usuarios</span> / <span class="current">{{ isset($usuario) ? 'Editar usuario' : 'nuevo usuario' }}</span>
+            <span> {{ (auth()->user()->rol === 'Administrador') ? 'Administración' : 'Recovery' }}</span> / <span>Usuarios</span> / <span class="current">{{ isset($usuario) ? 'Editar usuario' : 'nuevo usuario' }}</span>
             <h1 class="page-title">Gestión de usuarios</h1>
         </div>
         <a href="{{ route('usuarios.index') }}" class="btn-volver">
@@ -45,9 +45,8 @@
                         type="email" 
                         id="email" 
                         name="email"
-                        placeholder="tu@cutcsa.com" 
-                        pattern=".+@cutcsa\.com"
-                        title="Por favor, introduce un correo válido de cutcsa.com" 
+                        placeholder="Introduce un correo"
+                        title="Por favor, introduce un correo válido" 
                         value="{{ old('email', isset($usuario) ? $usuario->email : '') }}" 
                         required 
                         autofocus
@@ -65,7 +64,7 @@
                     placeholder="51234321" 
                     required 
                     min="0"
-                    minlength="7"
+                    max="99999999"
                     class="form-control-custom">
                     <small class="form-text">Documento de identidad del usuario</small>
                     @error('ci') <span class="text-danger">{{ $message }}</span> @enderror
@@ -91,9 +90,13 @@
                     <div class="form-group">
                         <label for="rol">Rol *</label>
                         <select id="rol" name="rol" required class="form-control-custom">
-                            <option value="" disabled {{ old('rol', isset($usuario) ? $usuario->rol : '') == '' ? 'selected' : '' }}>Selecciona un rol</option>
-                            <option value="Operador" {{ old('rol', isset($usuario) ? $usuario->rol : '') == 'Operador' ? 'selected' : '' }}>Operador</option>
-                            <option value="Auditor" {{ old('rol', isset($usuario) ? $usuario->rol : '') == 'Auditor' ? 'selected' : '' }}>Auditor</option>
+                            @if(auth()->user()->rol === 'Recovery')
+                                <option value="Administrador" {{ old('rol', isset($usuario) ? $usuario->rol : '') == 'Administrador' ? 'selected' : '' }}>Administrador</option>
+                            @else
+                                <option value="" disabled {{ old('rol', isset($usuario) ? $usuario->rol : '') == '' ? 'selected' : '' }}>Selecciona un rol</option>
+                                <option value="Operador" {{ old('rol', isset($usuario) ? $usuario->rol : '') == 'Operador' ? 'selected' : '' }}>Operador</option>
+                                <option value="Auditor" {{ old('rol', isset($usuario) ? $usuario->rol : '') == 'Auditor' ? 'selected' : '' }}>Auditor</option>
+                            @endif
                         </select>
                         @error('rol') <span class="text-danger">{{ $message }}</span> @enderror
                     </div>

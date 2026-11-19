@@ -36,7 +36,7 @@
             <button 
             data-bs-toggle="modal" data-bs-target="#crearDepartamentoModal"
             class="btn-primary">
-                <i class="fa-solid fa-plus"></i> Crear departamento
+                <i class="fa-solid fa-users"></i> Crear departamento
             </button>
         </div>
      </div>

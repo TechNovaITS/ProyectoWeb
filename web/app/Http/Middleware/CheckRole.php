@@ -5,6 +5,8 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 
 class CheckRole
 {
@@ -13,9 +15,10 @@ class CheckRole
      *
      * @param  Closure(Request): (Response)  $next
      */
-    public function handle(Request $request, Closure $next, string $rol): Response
+    public function handle(Request $request, Closure $next, string ...$rol): Response
     {
-        if ($request->user() && $request->user()->rol === $rol) {
+        if ($request->user() && in_array($request->user()->rol, $rol)) {
+            
             return $next($request);
         }
 
