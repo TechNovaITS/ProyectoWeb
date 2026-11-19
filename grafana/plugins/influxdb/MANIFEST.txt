@@ -7,34 +7,34 @@ Hash: SHA512
   "signedByOrg": "grafana",
   "signedByOrgName": "Grafana Labs",
   "plugin": "influxdb",
-  "version": "13.1.10",
-  "time": 1793300281769,
+  "version": "13.2.0",
+  "time": 1795036759802,
   "keyId": "7e4d0c6a708866e7",
   "files": {
     "README.md": "b09743842a186a9d3d4170a3b60afa607492eb6491936763ffcc3ca6e8177a3b",
-    "sql-query-editor.js.map": "79837b6d1eaccb21c627f24f4b7b9d5400cf781194fb8170fb0b5e5acfd676ba",
-    "CHANGELOG.md": "25d2895f61f9ef5650099d9c69edee008dbed2440538024ef5a6b263ef0e3f43",
-    "sql-query-editor.js": "84baf7f25ca0b7d31384c79c4d6472bd2bd7e484cd182f8c990da41e063e397f",
-    "plugin.json": "8cc5d04435c5cea2f77ef62c896d7876ed2eabf08de4365967e6fad4863c05e5",
-    "module.js": "1607d85aac213af60e9bab268eba2a1c87420b1be38e2df79d5c5d0ebbf6cd7f",
+    "sql-query-editor.js.map": "9ee60940e9c2943fd9b709c7dff9ea7440c5da8e991d9d509d95133d41544b3e",
+    "CHANGELOG.md": "667f53f86b82a80e9890ea4df58887536a06dbac84f97c99945d6a50628b80fa",
+    "sql-query-editor.js": "f16f682d1747e1d4be4301c38d666c14d45ab0011620bd1252fa58a63b1693e0",
+    "plugin.json": "ff9d8c6261679152ffe7ed8ea7c7d1b81fc09fe554933f0a49b95d33f6d38218",
+    "module.js": "3d96bf2bb949fbb5a3be794b06c95270bb7f1843828795c92adf42d966979585",
     "img/influxdb_logo.svg": "1398a1b949f402d17b11547710f2a9886f833a17cc64bf1a1536c0c463b4e489",
     "query_help.md": "9e1901b0e59b0bee6b09d1956e54cfd3ebd49ed5794f52868cfc84d9eff177a2",
     "LICENSE": "8486a10c4393cee1c25392769ddd3b2d6c242d6ec7928e1414efff7dfb2f07ef",
-    "go_plugin_build_manifest": "283c460db42a0dfd138fb23c620a83efca49593915644932926aa5647935d83a",
+    "go_plugin_build_manifest": "2b89fa7a6b98e2ba3e9f051ae5ee563cdc53ce7479ea160ff9e6ab5a7908043d",
     "module.js.LICENSE.txt": "ceb170eaa80002312bc3298e0d068917b8249823f83efd809135cd8c94672d6a",
     "156.js.map": "0222ddac91cc85b6778b0c26868f3ed53b02bbade9d5904fda25af06c83c66af",
     "156.js": "99d2e4693ebafc54079987726c9c18909d847f6194f3ecc878d80b2c44049e6b",
-    "gpx_grafana_influxdb_datasource_linux_amd64": "63ca78993a3de807621515a10329268855cefef72ea44b67622996cf4c833181",
-    "module.js.map": "b562b7e24d5efb40fdf5538a2eaefe5bc490c67fc7f0a46d9b584a999ea0d122"
+    "gpx_grafana_influxdb_datasource_linux_amd64": "e194d3383c0c4ee7492f1c20fd4c5391ffb000e701f3d88d08d75f51eeb13de6",
+    "module.js.map": "69f6c910fdda014ff08481507916470e38e08eb30616f6ac1c365e0c3a4babae"
   }
 }
 -----BEGIN PGP SIGNATURE-----
 
-wsA+BAETCgBtBYJq45c5CRB+TQxqcIhm50UUAAAAAAAcACBzYWx0QG5vdGF0
-aW9ucy5vcGVucGdwanMub3JnoDrZ3vqdepcb0cXZkA9cZfAefS+yrRctDkoY
-1RhL9vIWIQTzOyW2kQdOhGNlcPN+TQxqcIhm5wAAF/YCCQGM9RTq1orBHAwY
-R/bV11Ekz6svEjbGwtriPM1kgOXGZwUFQrFru3VehVSdtZUXVL5oN9MZ2r/9
-hyJnQ3gai+9j5wIHUhIh3Ogyn4kRQtxeuO10AVhs/nmWGr8DJ+QuaY35HMqY
-4f9e8cfL88aQNowxPNx4wopUXfuLsmoAk0jVzskGbuk=
-=hQwM
+wsA+BAETCgBtBYJq/hZXCRB+TQxqcIhm50UUAAAAAAAcACBzYWx0QG5vdGF0
+aW9ucy5vcGVucGdwanMub3JnosxGOW5NHUe5vOqcp82eW14oe7JQvc5vs+HH
+5Cq8td0WIQTzOyW2kQdOhGNlcPN+TQxqcIhm5wAASzICBiS0ZKmAKi34fOAl
+FHEQ9bJeWjUxjuLv7CaUIiOO6d3CMc9ok5T9OoWOiGkxfXH49m+mpPH1DaZd
+Lq5p1RmNc5brAgkB+ka4TbjsOKEOa0Vm520WAfBNdctD8vFaTAM0IcwUIKDK
+EkB5MgRlvnzSv7SBR5Vj3D4Qjkrk2Lq4gnt52sf0Fow=
+=sJm0
 -----END PGP SIGNATURE-----

@@ -7,8 +7,8 @@ Hash: SHA512
   "signedByOrg": "grafana",
   "signedByOrgName": "Grafana Labs",
   "plugin": "prometheus",
-  "version": "13.2.6",
-  "time": 1794403982317,
+  "version": "13.2.7",
+  "time": 1795042922396,
   "keyId": "7e4d0c6a708866e7",
   "files": {
     "4872.js": "2a30dc50f2565189ce434738bd04c24c1ca3f7c9197f03b7d62789b0984d3866",
@@ -42,13 +42,13 @@ Hash: SHA512
     "5342.js": "c0e0452c953a14ff9674718f8db9fb80727285ffe6233545393be77c9a7d3c33",
     "7950.js.map": "5f1d37c6ad6a11c970c2d6c7ea6cebe609bc7c846895168af6a0e100deded3f6",
     "9606.js.map": "f614818388d586c4880f69803bca6a290c66e5b84ad66efcdba1697b6265deaf",
-    "gpx_grafana-prometheus-datasource_linux_amd64": "57acfe6687b5205fd985dda6ae59ae35b0f27ed2cc9702c631314e6efd83c012",
+    "gpx_grafana-prometheus-datasource_linux_amd64": "52f52b3621b4153f44a3d1c9e4ff2c86112c143b01b8d88b8a6c339a8068f835",
     "2650.js.map": "7a4f77976288c637bd961d82769bf916462e808ab94c0eaf77169de9dec22386",
     "1450.js": "e092b59a788395bd65009d0a4c1e9bea49ef5715282a0dedc757213b116cadde",
     "6656.js": "bb7352ab1ca6639ce3e38394b13a7d2447231d9235857954ed3b20356a3bb9cc",
     "2278.js.map": "60c57df5beafa73f92b479e22055205612ebc15c2acb1c06b59a43692dda1a4f",
     "4916.js": "593d4cb60ade61396d9f9fd6fdfcfa0ca22e8573188201cb2e58a5b85b05c917",
-    "CHANGELOG.md": "6fb94cefaa197e8e80dfb2a8d1203a91f1c7eb48a2177196d24c6a5beba10a43",
+    "CHANGELOG.md": "13282a637cb8b4ce99670e9bd4868418ed4d93a683b68abf9d18ea641199ed09",
     "5704.js": "ed4295a3f4fc3b4bf94908e7d93f5b49aaf06da852e91c7e69056c9c4eafc9db",
     "1934.js": "c9d1d42393b5093e314674ae1840170074097c72e991bbf37b6b3c36a9335bb6",
     "2362.js.map": "6b07a024b4ad6e7d7e8416553c15a280db9fb2cbb1281fa190bb0718b4d807f7",
@@ -59,7 +59,7 @@ Hash: SHA512
     "4458.js.map": "bca505252b28c978c14e66ee0d46125426a164d6bea685fc827d6c2d106197a6",
     "3972.js": "35196b6276b5abea25f5e45d52da28544e60b3000e610e6c840f52d55903abea",
     "4872.js.map": "275cb224efef78f2e18a111ef075bf2d2488af42f2820e9316c255a0570c7659",
-    "plugin.json": "741acbaccac97beed512db930849c150ed3c3f1e201821d4b154029a4f5258c9",
+    "plugin.json": "1b5c64c747d267d92f03d9b9c44443eb265b5032c0ee269ad78efd9dd3d171ca",
     "5342.js.map": "4a36a1c249b275c403a709e12971b283a19e2c75180a97c6f1b095bb80e07b78",
     "2532.js": "b8e1a9cf8d61259446787e724c986a65a819abec3c39e04822618c60aeff367f",
     "schema/dsconfig.json": "54e25f2dbed320be9b23e7d2d95383a1cdc72c5164a95f33c5b8179d25235dce",
@@ -81,7 +81,7 @@ Hash: SHA512
     "7354.js.map": "59959127b2e10621d0c5731e03fd707841a250165d7b667e835846e40fd947de",
     "2066.js.map": "d684ad5e27d41dee27b8c746adb824fecbefad1249e0a8166fb778c8930a407c",
     "3652.js.map": "816f1b6367e817d3b7b881c37c12ce91087a457fe1e0c0b94bf9e57c21d2d9b0",
-    "module.js": "40cddd26e304fddadd9349fffbdb13806fad305125326bce95e501f15b4075bc",
+    "module.js": "1e5a2e19548c11c8c86c21e5a189c4bcfa048a57065d9d47569c7e3c695fdcf4",
     "img/prometheus_logo.svg": "27c3da3d629e21f746d19456411ec944946b851127f625b178abea5c8e4ada52",
     "5434.js": "dae350decf8ba33669876b41c338de55a62b3f9441af57de6c52e61426e1fae2",
     "7950.js": "7e9e0505a2174756365f75479254c08e06071bb9cd03801ad73b8a93e524fb36",
@@ -134,7 +134,7 @@ Hash: SHA512
     "2426.js.map": "887aee642e5038b538a9a4b4df0e094f57beaee60feadf3e65ad51aae5af7efb",
     "6922.js": "2ae9733d1db07faaedfb685e8d5616b2ca8f542086e6db440ec8f8cd2e9f2932",
     "826.js": "356809fd7e28ceab82239f0afd56864b79a9daf2bdd16c3844954735289cb8b7",
-    "go_plugin_build_manifest": "78ee7500d4675b9bb88894b432f01404a1f536113615bd4f4116c96b1956da21",
+    "go_plugin_build_manifest": "e7ba15556feeb495a6b38e7be48159abee642275b025b1401f9c61cb0c8e10bf",
     "6656.js.map": "f1692314e424b901f32c4a6552a9a11ff6647d9a9d8e547796919ece57f853dd",
     "2278.js": "9550e8efb6f865dd675ac3b3fe1db5bba54eab8d5e0ae69d77cec451bd1c0cbd",
     "2934.js.map": "d53c5eaa24f08b5f493c7b68dbcf452e5df867d2f846317ae37cf84e4772c5b2",
@@ -211,18 +211,18 @@ Hash: SHA512
     "8574.js.map": "e86c0dae7fe57dddabd7fed8cf7c2f785a301b0ce64b0bcfc0420f2cc989aa6c",
     "8874.js": "67c42795316d2a1e43b158e37eb6c9ccbf9dcc524c912f26c4a1f39981ec9d7d",
     "358.js.map": "bd0c5a62309ba93b0f30a0abf648951c2e1ca633ea879edfd963ba482b1d1360",
-    "module.js.map": "372f320c1c50d2185ddb6c42e4b4067ba4e252a42d5bd55f40b604cc2b0ec55f",
+    "module.js.map": "79f4de14913c651acf8362a4fe1743897c11f7a4c1d391b6d95580577787726e",
     "4458.js": "d67d8a64713e2831385b2e9ed2fd57f842b928c7e01dee69e7fa5673564fdb0b",
     "3704.js.map": "e866b5caa9d22a187cf276570684a47c9ad40c58cad753d541c9357c83f5ad37"
   }
 }
 -----BEGIN PGP SIGNATURE-----
 
-wsA9BAETCgBtBYJq9G6OCRB+TQxqcIhm50UUAAAAAAAcACBzYWx0QG5vdGF0
-aW9ucy5vcGVucGdwanMub3JnXDTJ9xmvbMNbkDxFQZ1qNUw5OGD74wufDnyt
-RAi3HAoWIQTzOyW2kQdOhGNlcPN+TQxqcIhm5wAA9I4CB21Nb7AT7ilygBaI
-KTFDrymPSYKqF1W5dEFpzRZP95ZIWJmjfqxlgN47pqw8SCB45nc7sk45J5LV
-va+qaY8y5yA3AgdJtiWeJk5lssMYnGv+6VwwV28y+E/ZZ5IYJkFyCbV7EQuW
-aoFMxyWYr3Us+cDki1vcnmej0rOkjnxDSrvDBYGYaw==
-=Txec
+wsA/BAETCgBtBYJq/i5qCRB+TQxqcIhm50UUAAAAAAAcACBzYWx0QG5vdGF0
+aW9ucy5vcGVucGdwanMub3JnaAan4zVWEjtVGiLbT/RV0f+ZSqpiYZlzK4Xm
+fFl+098WIQTzOyW2kQdOhGNlcPN+TQxqcIhm5wAA3/8CCQGF0IEMkoz/aRdG
+IzlnBoa0ko6vKTHfOqsoG1ANTXr08tm8bQjmv6osNBVJn6Ewst8Zk9ky0wgU
+zvBmSLwYLiIpNAIJAeSBChJvHWmqf4TwROH9xLCMf6j7OR0cuRpOhNTvzqS8
+WwPicA04A/zEaBUZcl+2xAIVs76ZwRcb1Ny1PHbtczU3
+=4tfE
 -----END PGP SIGNATURE-----
