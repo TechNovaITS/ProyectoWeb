@@ -1,0 +1,11 @@
+[mysqld]
+server_id=3
+auto_increment_increment=2
+auto_increment_offset=2
+report_host=mysql_db_2 
+log_bin=binlog
+binlog_format=ROW
+gtid_mode=ON
+enforce_gtid_consistency=ON
+log_replica_updates=ON
+relay-log=mysql-relay-bin

@@ -52,17 +52,21 @@ return new class extends Migration
         CREATE USER IF NOT EXISTS 'web_api'@'%' IDENTIFIED BY 'apipass';
         CREATE USER IF NOT EXISTS 'web_admin'@'%' IDENTIFIED BY 'adminpass';
         CREATE USER IF NOT EXISTS 'web_op'@'%' IDENTIFIED BY 'oppass';
+        CREATE USER IF NOT EXISTS 'web_auditor'@'%' IDENTIFIED BY 'auditorpass';
         CREATE USER IF NOT EXISTS 'web_recovery'@'%' IDENTIFIED BY 'recoverypass';
+    
         GRANT 'db_login' TO 'web_login'@'%';
         GRANT 'db_api' TO 'web_api'@'%';
         GRANT 'administrador' TO 'web_admin'@'%';
         GRANT 'operador' TO 'web_op'@'%';
+        GRANT 'auditor' TO 'web_auditor'@'%';
         GRANT 'recovery' TO 'web_recovery'@'%';
         SET DEFAULT ROLE 'db_login' TO 'web_login'@'%';
         SET DEFAULT ROLE 'db_api' TO 'web_api'@'%';
         SET DEFAULT ROLE 'administrador' TO 'web_admin'@'%';
         SET DEFAULT ROLE 'operador' TO 'web_op'@'%';
         SET DEFAULT ROLE 'recovery' TO 'web_recovery'@'%';
+        SET DEFAULT ROLE 'auditor' TO 'web_auditor'@'%';
         SQL);
     }
 
@@ -84,6 +88,7 @@ return new class extends Migration
             DROP USER IF EXISTS 'web_api'@'%';
             DROP USER IF EXISTS 'web_admin'@'%';
             DROP USER IF EXISTS 'web_op'@'%';
+            DROP USER IF EXISTS 'web_auditor'@'%';
             DROP USER IF EXISTS 'web_recovery'@'%';
         SQL);
     }

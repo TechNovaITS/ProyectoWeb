@@ -1,18 +1,72 @@
 services:
   # Servicio de Base de Datos
-  db:
+  mysql_db:
     image: mysql:8.0
     container_name: mysql_db
     restart: unless-stopped
     environment:
       MYSQL_DATABASE: laravel
       MYSQL_ROOT_PASSWORD: rootpassword
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
     ports:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+      - ./mysql_config_files/mysql_db/main.cnf:/etc/mysql/conf.d/source.cnf:ro
+      - ./mysql_config_files/mysql_db/init:/docker-entrypoint-initdb.d
+    networks:
+      - app_network
+
+  # Servicio de Replica de Base de Datos
+  db_replica:
+    image: mysql:8.0
+    container_name: mysql_db_replica
+    restart: unless-stopped
+    depends_on:
+      - mysql_db
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: rootpassword
+    ports:
+      - "3307:3306"
+    volumes:
+      - replica_data:/var/lib/mysql
+      - ./mysql_config_files/mysql_replica/slave.cnf:/etc/mysql/conf.d/replica.cnf:ro
+      - ./mysql_config_files/mysql_replica/init:/docker-entrypoint-initdb.d
+    networks:
+      - app_network
+
+  # Servicio de MASTER-2 de Base de Datos
+  db_mysql_2:
+    image: mysql:8.0
+    container_name: mysql_db_2
+    restart: unless-stopped
+    depends_on:
+      - mysql_db
+    environment:
+      MYSQL_DATABASE: laravel
+      MYSQL_ROOT_PASSWORD: rootpasswordmaster2
+    ports:
+      - "3308:3306"
+    volumes:
+      - db_data_2:/var/lib/mysql
+      - ./mysql_config_files/mysql_db_2/main2.cnf:/etc/mysql/conf.d/main2.cnf:ro
+      - ./mysql_config_files/mysql_db_2/init:/docker-entrypoint-initdb.d
+    networks:
+      - app_network
+    
+  proxysql:
+    image: proxysql/proxysql:2.6.6
+    container_name: proxysql
+    depends_on:
+      - mysql_db
+      - db_replica
+      - db_mysql_2
+    ports:
+      - "6033:6033" # Puerto SQL para Laravel
+      - "6032:6032" # Puerto de administración ProxySQL
+    volumes:
+      - ./proxysql/proxysql.cnf:/etc/proxysql.cnf
+      - proxysql_data:/var/lib/proxysql
     networks:
       - app_network
 
@@ -30,7 +84,7 @@ services:
       # Volumen compartido para que Alloy pueda leer los logs de Apache/Laravel del host
       - apache_logs:/var/log/apache2
     depends_on:
-      - db
+      - mysql_db
     networks:
       - app_network
 
@@ -98,6 +152,9 @@ services:
 
 volumes:
   db_data:
+  replica_data:
+  db_data_2:
+  proxysql_data:
   prometheus_data:
   loki_data:
   apache_logs:

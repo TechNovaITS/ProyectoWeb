@@ -27,14 +27,14 @@ class Usuarios extends Seeder
                 'email'           => 'development@cutcsa.com',
                 'password'        => 'Password1',
                 'rol'             => 'Operador',
-                'id_departamento' => 2,
+                'id_departamento' => 3,
             ]);
             Usuario::create([
                 'ci'              => 11223344,
                 'email'           => 'support@cutcsa.com',
                 'password'        => 'Password1',
                 'rol'             => 'Auditor',
-                'id_departamento' => 3,
+                'id_departamento' => 5,
             ]);
             Usuario::create(
             [

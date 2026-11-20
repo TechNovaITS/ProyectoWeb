@@ -1,0 +1,120 @@
+datadir="/var/lib/proxysql"
+
+admin_variables=
+{
+  admin_credentials="proxyadmin:adminpassword"
+  mysql_ifaces="0.0.0.0:6032"
+}
+
+mysql_variables=
+{
+  threads=4
+  max_connections=2048
+  default_query_delay=0
+  default_query_timeout=10000
+  have_compress=true
+  poll_timeout=2000
+  interfaces="0.0.0.0:6033"
+  default_schema="laravel"
+  server_version="8.0.46"
+  connect_timeout_server=3000
+  ping_interval_server_msec=10000
+  ping_timeout_server=5000
+  monitor_username="monitor"
+  monitor_password="MonitorPassword123!"
+  monitor_history=600000
+  monitor_connect_interval=60000
+  monitor_ping_interval=10000
+  monitor_read_only_interval=1500
+  monitor_read_only_timeout=500
+}
+
+mysql_servers=
+(
+  # Masters de escritura (hostgroup 10)
+  { address="mysql_db", port=3306, hostgroup=10, max_connections=100, weight=100, max_replication_lag=5 },
+  { address="mysql_db_2", port=3306, hostgroup=10, max_connections=100, weight=50, max_replication_lag=5 },
+
+  # Réplica de lectura (hostgroup 20)
+  { address="mysql_db_replica", port=3306, hostgroup=20, max_connections=200, weight=100, max_replication_lag=5 }
+)
+
+mysql_users=
+(
+  {
+    username="web_login",
+    password="loginpass",
+    default_hostgroup=20,
+    max_connections=500,
+    default_schema="laravel",
+    active=1
+  },
+  {
+    username="root",
+    password="rootpassword",
+    default_hostgroup=10,
+    max_connections=500,
+    default_schema="laravel",
+    active=1
+  },
+  {
+    username="web_admin",
+    password="adminpass",
+    default_hostgroup=10,
+    max_connections=500,
+    default_schema="laravel",
+    active=1
+  },
+  {
+    username="web_api",
+    password="apipass",
+    default_hostgroup=10,
+    max_connections=500,
+    default_schema="laravel",
+    active=1
+  },
+  {
+    username="web_op",
+    password="oppass",
+    default_hostgroup=10,
+    max_connections=500,
+    default_schema="laravel",
+    active=1
+  },
+  {
+    username="web_auditor",
+    password="auditorpass",
+    default_hostgroup=10,
+    max_connections=500,
+    default_schema="laravel",
+    active=1
+  },
+  {
+    username="web_recovery",
+    password="recoverypass",
+    default_hostgroup=10,
+    max_connections=500,
+    default_schema="laravel",
+    active=1
+  }
+)
+
+mysql_query_rules=
+(
+  # Lecturas con bloqueo (FOR UPDATE / LOCK IN SHARE MODE) van al master para evitar inconsistencias
+  {
+    rule_id=1,
+    active=1,
+    match_pattern="^SELECT .*(FOR UPDATE|LOCK IN SHARE MODE)$",
+    destination_hostgroup=10,
+    apply=1
+  },
+  # Resto de SELECT van a la réplica de lectura (hostgroup 20)
+  {
+    rule_id=2,
+    active=1,
+    match_pattern="^SELECT ",
+    destination_hostgroup=20,
+    apply=1
+  }
+)

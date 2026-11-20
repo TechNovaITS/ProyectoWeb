@@ -1,0 +1,8 @@
+CREATE USER IF NOT EXISTS 'replicacion'@'%' IDENTIFIED BY 'ReplicacionPassword123';
+GRANT REPLICATION SLAVE ON *.* TO 'replicacion'@'%';
+FLUSH PRIVILEGES;
+
+CREATE USER IF NOT EXISTS 'monitor'@'%' IDENTIFIED BY 'MonitorPassword123!';
+ALTER USER 'monitor'@'%' IDENTIFIED BY 'MonitorPassword123!';
+GRANT USAGE, REPLICATION CLIENT ON *.* TO 'monitor'@'%';
+FLUSH PRIVILEGES;
