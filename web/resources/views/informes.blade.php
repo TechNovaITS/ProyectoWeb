@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Gestión de Informes - Sentinel Ops')
+@section('title', 'Gestión de Informes - Sentinel')
 
 @section('content')
     @if(session('success'))
@@ -23,7 +23,7 @@
     <!-- Cabecera superior y migas de pan -->
     <div class="content-header-top">
         <div class="breadcrumbs">
-            <span> {{ auth()->user()->rol === 'Administrador' ? 'Administración' : 'Operador' }}</span> /<span> Alertas</span> / <span class="current">Informes</span>
+            <span> {{ auth()->user()->rol === 'Administrador' ? 'Administración' : 'Operaciones' }}</span> /<span> Alertas</span> / <span class="current">Informes</span>
         </div>    
     </div>
     <div class="content-header">

@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Dashboard;
 
 class CreateDashboardRequest extends FormRequest
 {
@@ -25,7 +26,7 @@ class CreateDashboardRequest extends FormRequest
         $conexion = (new Dashboard())->getConnectionName();
         return [
             'nombre' => "required|string|max:100|unique:{$conexion}.dashboards,nombre",
-            'url' => 'required|string|max:255|url',
+            'url' => "required|string|max:255|url|unique:{$conexion}.dashboards,url",
         ];
     }
     public function messages()
@@ -39,6 +40,7 @@ class CreateDashboardRequest extends FormRequest
             'url.string' => 'La URL del dashboard debe ser una cadena de texto.',
             'url.max' => 'La URL del dashboard no puede tener más de 255 caracteres.',
             'url.url' => 'La URL del dashboard debe ser una URL válida.',
+            'nombre.unique' => 'El URL del dashboard ya está en uso.',
         ];
     }
 }

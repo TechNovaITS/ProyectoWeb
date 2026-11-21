@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;   
 use Illuminate\Validation\Rule;
+use App\Models\Dispositivo;
 
 class UpdateDispositivoRequest extends FormRequest
 {
@@ -23,7 +24,7 @@ class UpdateDispositivoRequest extends FormRequest
      */
     public function rules(): array
     {
-        $conexion = (new Dispositivos())->getConnectionName();
+        $conexion = (new Dispositivo())->getConnectionName();
         $dispositivo = $this->route('dispositivo'); // Obtiene el dispositivo de la ruta
         return [
             'nombre' => ['required', 'string', 'max:100', Rule::unique('dispositivos', 'nombre')->ignore($dispositivo->id, 'id')],

@@ -71,7 +71,9 @@
                         <tr>
                             <!-- ID -->
                             <td class="py-3 px-4 fw-medium">
-                                {{ str_pad($informe->id, 2, '0', STR_PAD_LEFT) }}</a>
+                                <a href=" {{ route('informes.show', $informe->id) }}" class="text-decoration-none ">
+                                {{ str_pad($informe->id, 2, '0', STR_PAD_LEFT) }}
+                                </a>
                             </td>
                             <!-- ID alerta -->
                             <td class="py-3 px-4 text-dark">

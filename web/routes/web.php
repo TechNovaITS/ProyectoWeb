@@ -10,6 +10,7 @@ use App\Http\Controllers\UsuariosController;
 use App\Http\Controllers\DispositivosController;
 use App\Http\Controllers\AlertasController;
 use App\Http\Controllers\InformesController;
+use App\Http\Controllers\AuditoriaController;
 
 Route::get('/', function () {
    if (!Auth::check()) {
@@ -70,3 +71,7 @@ Route::get('/administracion/informes', [InformesController::class, 'index'])->na
 Route::get('/administracion/informes/{informe}/editar', [InformesController::class, 'formUpdate'])->name('alertas.informeupdate')->middleware('auth', 'rol:Administrador,Operador');
 Route::delete('/administracion/informes/{informe}', [InformesController::class, 'destroy'])->name('informes.destroy')->middleware('auth', 'rol:Administrador,Operador');
 Route::put('/administracion/informes/{informe}', [InformesController::class, 'update'])->name('informe.updated')->middleware('auth', 'rol:Administrador,Operador');
+Route::get('/administracion/informes/{informe}', [InformesController::class, 'show'])->name('informes.show')->middleware('auth', 'rol:Administrador,Operador');
+// Auditoria
+Route::get('/auditoria/actividad', [AuditoriaController::class, 'actividad'])->name('auditoria.actividad')->middleware('auth', 'rol:Administrador,Auditor');
+Route::get('/auditoria/actividad/{actividad}', [AuditoriaController::class, 'showActividad'])->name('auditoria.showactividad')->middleware('auth', 'rol:Administrador,Auditor');

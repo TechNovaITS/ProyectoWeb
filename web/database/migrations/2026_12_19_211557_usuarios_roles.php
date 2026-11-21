@@ -34,6 +34,7 @@ return new class extends Migration
         GRANT SELECT, UPDATE ON laravel.alertas to 'administrador';
         GRANT SELECT, DELETE, UPDATE, INSERT ON laravel.asigna to 'administrador';
         GRANT SELECT, UPDATE, INSERT ON laravel.informes to 'administrador';
+        GRANT INSERT, SELECT ON laravel.activity_log to 'administrador';
         GRANT SELECT, UPDATE ON laravel.usuarios to 'operador';
         GRANT SELECT ON laravel.dispositivos to 'operador';
         GRANT SELECT ON laravel.departamentos to 'operador';
@@ -41,8 +42,10 @@ return new class extends Migration
         GRANT SELECT, UPDATE ON laravel.alertas to 'operador';
         GRANT SELECT, DELETE, UPDATE, INSERT ON laravel.asigna to 'operador';
         GRANT SELECT, UPDATE, INSERT ON laravel.informes to 'operador';
+        GRANT INSERT ON laravel.activity_log to 'operador';
         GRANT SELECT ON laravel.departamentos to 'recovery';
         GRANT SELECT, UPDATE, INSERT ON laravel.usuarios to 'recovery';
+        GRANT INSERT ON laravel.activity_log to 'recovery';
         FLUSH PRIVILEGES;
         SQL);
 

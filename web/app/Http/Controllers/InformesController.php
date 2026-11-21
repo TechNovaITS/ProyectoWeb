@@ -12,7 +12,7 @@ use App\Http\Requests\InformesRequest;
 class InformesController extends Controller
 {
     public function formCreate(Alerta $alerta) {
-        return view('informe', compact('alerta'));
+        return view('informe-formulario', compact('alerta'));
     }
     public function store(Asigna $asigna, Request $request) {
         $validatedData = $request->validate([
@@ -36,7 +36,7 @@ class InformesController extends Controller
     }
     public function formUpdate(Informe $informe) {
         $alerta = Alerta::find($informe->id_alerta);
-        return view('informe', compact('informe', 'alerta'));
+        return view('informe-formulario', compact('informe', 'alerta'));
     }
     public function update(Informe $informe, InformesRequest $request) {
         if ($informe->asigna->ci_usuario !== auth()->user()->ci) {
@@ -54,5 +54,10 @@ class InformesController extends Controller
         }
         $informe->delete();
         return redirect()->route('alertas.informesindex')->with('success', 'Informe eliminado exitosamente.');
+    }
+
+    public function show(Informe $informe) {
+        $alerta = Alerta::find($informe->id_alerta);
+        return view('informe', compact('informe', 'alerta'));
     }
 }

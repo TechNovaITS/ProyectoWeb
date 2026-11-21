@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
+use App\Models\Dispositivo;
 
 class CreateDispositivoRequest extends FormRequest
 {
@@ -22,7 +23,7 @@ class CreateDispositivoRequest extends FormRequest
      */
     public function rules(): array
     {
-        $conexion = (new Dispositivos())->getConnectionName();
+        $conexion = (new Dispositivo())->getConnectionName();
         return [
             'nombre' => ['required', 'string', 'max:100', "unique:{$conexion}.dispositivos,nombre"],
             'ip' => ['required', 'string', 'max:45'],

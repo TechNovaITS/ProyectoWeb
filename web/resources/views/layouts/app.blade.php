@@ -89,8 +89,8 @@
                     </li>
                     <li>
                         @if(auth()->user()->rol === 'Administrador' or auth()->user()->rol === 'Auditor')
-                            <a href="#" class="{{ request()->routeIs('reportes.*') ? 'active' : '' }}">
-                                <i class="fa-solid fa-chart-bar"></i> Reportes
+                            <a href="{{ route('auditoria.actividad') }}" class="{{ request()->routeIs('auditoria.*') ? 'active' : '' }}">
+                                <i class="fa-solid fa-chart-bar"></i> Auditoría
                             </a>
                         @endif
                     </li>
