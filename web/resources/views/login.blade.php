@@ -48,7 +48,7 @@
                     >
                 </div>
                 @error('email')
-                    <span style="color: #e3342f; font-size: 12px; margin-top: 4px; display: block;">{{ $message }}</span>
+                    <span class="error-msg">{{ $message }}</span>
                 @enderror
             </div>
 
@@ -75,7 +75,7 @@
                     </button>
                 </div>
                 @error('password')
-                    <span style="color: #e3342f; font-size: 12px; margin-top: 4px; display: block;">{{ $message }}</span>
+                    <span class="error-msg">{{ $message }}</span>
                 @enderror
             </div>
             <div class="form-group">

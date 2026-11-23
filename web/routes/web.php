@@ -19,7 +19,7 @@ Route::get('/', function () {
         return match (auth()->user()->rol) {
         'Administrador'   => redirect()->route('alertas.index'),
         'Operador'  => redirect()->route('alertas.index'),
-        'Auditor' => redirect()->route('cliente.home'),
+        'Auditor' => redirect()->route('auditoria.actividad'),
         'Recovery'   => redirect()->route('usuarios.index'),
     };
     }
@@ -74,4 +74,8 @@ Route::put('/administracion/informes/{informe}', [InformesController::class, 'up
 Route::get('/administracion/informes/{informe}', [InformesController::class, 'show'])->name('informes.show')->middleware('auth', 'rol:Administrador,Operador');
 // Auditoria
 Route::get('/auditoria/actividad', [AuditoriaController::class, 'actividad'])->name('auditoria.actividad')->middleware('auth', 'rol:Administrador,Auditor');
+Route::get('/auditoria/alertas', [AuditoriaController::class, 'alertas'])->name('auditoria.alertas')->middleware('auth', 'rol:Administrador,Auditor');
+Route::get('/auditoria/informes', [AuditoriaController::class, 'informes'])->name('auditoria.informes')->middleware('auth', 'rol:Administrador,Auditor');
 Route::get('/auditoria/actividad/{actividad}', [AuditoriaController::class, 'showActividad'])->name('auditoria.showactividad')->middleware('auth', 'rol:Administrador,Auditor');
+Route::get('/auditoria/alertas/{alerta}', [AuditoriaController::class, 'showAlerta'])->name('auditoria.showalerta')->middleware('auth', 'rol:Administrador,Auditor')->withTrashed();
+Route::get('/auditoria/informes/{informe}', [AuditoriaController::class, 'showInforme'])->name('auditoria.informe')->middleware('auth', 'rol:Administrador,Auditor')->withTrashed();

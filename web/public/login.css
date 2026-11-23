@@ -165,3 +165,9 @@ body {
 .btn-submit:hover {
     background-color: #355043;
 }
+.error-msg {
+    color: #e3342f; 
+    font-size: 12px; 
+    margin-top: 4px; 
+    display: block;
+}

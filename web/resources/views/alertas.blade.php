@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Gestión de Alertas - Sentinel Ops')
+@section('title', 'Gestión de Alertas - Sentinel')
 @section('content')
 @if(session('success'))
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -23,7 +23,7 @@
     <!-- Cabecera superior y migas de pan -->
     <div class="content-header-top">
         <div class="breadcrumbs">
-            <span> {{ auth()->user()->rol === 'Administrador' ? 'Administración' : 'Operador' }}</span> / <span class="current">Alertas</span>
+            <span> {{ auth()->user()->rol === 'Administrador' ? 'Administración' : 'Operaciones' }}</span> / <span class="current">Alertas</span>
         </div>    
     </div>
 

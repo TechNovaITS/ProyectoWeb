@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Gestión de Usuarios - Sentinel Ops')
+@section('title', 'Gestión de Usuarios - Sentinel')
 
 @section('content')
     @if(session('success'))
@@ -23,7 +23,7 @@
     <!-- Cabecera superior y migas de pan -->
     <div class="content-header-top">
         <div class="breadcrumbs">
-             <span>{{ (auth()->user()->rol === 'Administrador') ? 'Administración' : 'Recovery' }}</span> / <span class="current">Usuarios</span>
+             <span>{{ (auth()->user()->rol === 'Administrador') ? 'Administración' : 'Recuperación' }}</span> / <span class="current">Usuarios</span>
         </div>    
     </div>
     <div class="content-header">

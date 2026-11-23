@@ -1,3 +1,7 @@
+@push('styles')
+    <!-- Enlace al archivo CSS independiente -->
+    <link rel="stylesheet" href="{{ asset('livewire.css') }}">
+@endpush
 <div class="container-fluid py-2 px-1 px-sm-2">
 
     <!-- Bloque Principal de la Tabla con Buscador -->
@@ -18,7 +22,7 @@
                 <thead class="table-light text-uppercase small text-secondary text-nowrap">
                     <tr>
                         <!-- Sort ID -->
-                        <th scope="col" wire:click="sortBy('ci')" class="py-3 px-2 px-md-3" style="cursor: pointer; user-select: none;">
+                        <th scope="col" wire:click="sortBy('ci')" class="py-3 px-2 px-md-3 scope-wire">
                             CI 
                             @if($sortField === 'ci')
                                 <span class="ms-1">{!! $sortDirection === 'asc' ? '↑' : '↓' !!}</span>
@@ -28,7 +32,7 @@
                         </th>
                         
                         <!-- Sort Email -->
-                        <th scope="col" wire:click="sortBy('email')" class="py-3 px-2 px-md-3" style="cursor: pointer; user-select: none;">
+                        <th scope="col" wire:click="sortBy('email')" class="py-3 px-2 px-md-3 scope-wire">
                             Email 
                             @if($sortField === 'email')
                                 <span class="ms-1">{!! $sortDirection === 'asc' ? '↑' : '↓' !!}</span>
@@ -38,7 +42,7 @@
                         </th>
 
                         <!-- Sort Rol -->
-                        <th scope="col" wire:click="sortBy('rol')" class="py-3 px-2 px-md-3" style="cursor: pointer; user-select: none;">
+                        <th scope="col" wire:click="sortBy('rol')" class="py-3 px-2 px-md-3 scope-wire">
                             Rol 
                             @if($sortField === 'rol')
                                 <span class="ms-1">{!! $sortDirection === 'asc' ? '↑' : '↓' !!}</span>
@@ -48,7 +52,7 @@
                         </th>
 
                         <!-- Sort Departamento -->
-                        <th scope="col" wire:click="sortBy('id_departamento')" class="py-3 px-2 px-md-3" style="cursor: pointer; user-select: none;">
+                        <th scope="col" wire:click="sortBy('id_departamento')" class="py-3 px-2 px-md-3 scope-wire">
                             Departamento 
                             @if($sortField === 'id_departamento')
                                 <span class="ms-1">{!! $sortDirection === 'asc' ? '↑' : '↓' !!}</span>
@@ -58,7 +62,7 @@
                         </th>
                         
                         <!-- Sort Fecha Creacion -->
-                        <th scope="col" wire:click="sortBy('created_at')" class="py-3 px-2 px-md-3" style="cursor: pointer; user-select: none;">
+                        <th scope="col" wire:click="sortBy('created_at')" class="py-3 px-2 px-md-3 scope-wire">
                             Fecha Creación 
                             @if($sortField === 'created_at')
                                 <span class="ms-1">{!! $sortDirection === 'asc' ? '↑' : '↓' !!}</span>
@@ -68,7 +72,7 @@
                         </th>
                         
                         <!-- Sort Ultima Modificacion -->
-                        <th scope="col" wire:click="sortBy('updated_at')" class="py-3 px-2 px-md-3" style="cursor: pointer; user-select: none;">
+                        <th scope="col" wire:click="sortBy('updated_at')" class="py-3 px-2 px-md-3 scope-wire">
                             Última Modificación 
                             @if($sortField === 'updated_at')
                                 <span class="ms-1">{!! $sortDirection === 'asc' ? '↑' : '↓' !!}</span>
@@ -110,11 +114,11 @@
                             <!-- Botones de Acción -->
                             <td class="py-3 px-2 px-md-3 text-end text-nowrap">
                                 <div class="d-inline-flex gap-2">
-                                    <button type="button" 
+                                    <a type="button" 
                                             class="btn btn-outline-secondary btn-sm px-2 py-1 fw-semibold" 
-                                            onclick="window.location.href='{{ route('usuarios.update', $usuario->ci) }}'">
+                                            href="{{ route('usuarios.update', $usuario->ci) }}">
                                         Editar
-                                    </button>
+                                    </a>
                                     <button type="button" 
                                             class="btn btn-outline-danger btn-sm px-2 py-1 fw-semibold" 
                                             data-bs-toggle="modal" 

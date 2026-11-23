@@ -6,7 +6,7 @@
     <!-- Cabecera superior y migas de pan -->
     <div class="content-header-top">
         <div class="breadcrumbs">
-            <span> {{ auth()->user()->rol === 'Administrador' ? 'Administración' : 'Auditoria' }}</span> / <span>Auditar</span> / <span class="current">Actividad</span>
+            <span> {{ auth()->user()->rol === 'Administrador' ? 'Administración' : 'Auditor' }}</span> / <span>Auditar</span> / <span class="current">Actividad</span>
         </div>    
     </div>
 

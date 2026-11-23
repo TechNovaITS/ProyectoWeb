@@ -43,6 +43,11 @@ return new class extends Migration
         GRANT SELECT, DELETE, UPDATE, INSERT ON laravel.asigna to 'operador';
         GRANT SELECT, UPDATE, INSERT ON laravel.informes to 'operador';
         GRANT INSERT ON laravel.activity_log to 'operador';
+        GRANT SELECT ON laravel.asigna to 'auditor';
+        GRANT SELECT ON laravel.alertas to 'auditor';
+        GRANT SELECT ON laravel.informes to 'auditor';
+        GRANT SELECT ON laravel.activity_log to 'auditor';
+        GRANT SELECT ON laravel.dispositivos to 'auditor';
         GRANT SELECT ON laravel.departamentos to 'recovery';
         GRANT SELECT, UPDATE, INSERT ON laravel.usuarios to 'recovery';
         GRANT INSERT ON laravel.activity_log to 'recovery';

@@ -1,0 +1,7 @@
+.search-input {
+    width: 280px;
+}
+.scope-wire {
+    cursor: pointer; 
+    user-select: none;
+}

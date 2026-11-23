@@ -21,19 +21,26 @@
     <!-- Cabecera superior y migas de pan -->
     <div class="content-header-top">
         <div class="breadcrumbs">
-            <span> {{ auth()->user()->rol === 'Administrador' ? 'Administración' : 'Operaciones' }}</span> /<span>Alertas</span> / <span class="current">Informes</span>
+            <span>@if (auth()->user()->rol === 'Administrador') 
+                    Administración
+                  @elseif (auth()->user()->rol === 'Operador')
+                    Operaciones
+                  @else
+                   Auditor 
+                   @endif
+                </span> / <span>{{ request()->routeIs('auditoria.*') ? 'Auditar' : 'Alertas' }}</span> / <span class="current">Asignar Alerta</span>
         </div>    
     </div>
 
     <!-- Título de la sección -->
      <div class="content-header">
         <div class="page-title-container">
-            <h1 class="page-title">Informes</h1>
+            <h1 class="page-title">Alerta</h1>
         </div>
         <div class="header-actions">
             <a 
             class="btn-primary"
-            href="{{ route('alertas.index') }}">
+            href=" {{ request()->routeIs('auditoria.*') ? route('auditoria.alertas') : route('alertas.index') }}">
                 <i class="fa-solid fa-arrow-left"></i> Volver Atras
             </a>
         </div>
@@ -43,26 +50,28 @@
     <div class="card-user-form">
     <form action="{{ route('alertas.store', $alerta->id) }}" method="POST" class="asignar-form">
     @csrf
-    @if (auth()->user()->rol === 'Administrador') 
-        <div class="asignar-container">
-            <div class="asignar-group">
-                <label for="ci_usuario">Asignar a Usuario:</label>
-                <select name="ci_usuario" id="ci_usuario" required class="asignar-select">
-                    <option value="" disabled selected>Seleccione un usuario</option>
-                    <option value="{{ auth()->user()->ci }}">Asignarme</option>
-                    @foreach($usuarios as $usuario)
-                        <option value="{{ $usuario->ci }}">{{ $usuario->email }}</option>
-                    @endforeach
-                </select>
-                <button type="submit" class="btn-submit">Asignar</button>
-            </div>
-        </div> 
-    @else
-        <div class="asignar-container">
-            <div class="asignar-group">
-                <button value="{{ auth()->user()->ci }}" name="ci_usuario" type="submit" class="btn-submit">Asignarme</button>
-            </div>
-        </div> 
+    @if (!request()->routeIs('auditoria.*'))
+        @if (auth()->user()->rol === 'Administrador') 
+            <div class="asignar-container">
+                <div class="asignar-group">
+                    <label for="ci_usuario">Asignar a Usuario:</label>
+                    <select name="ci_usuario" id="ci_usuario" required class="asignar-select">
+                        <option value="" disabled selected>Seleccione un usuario</option>
+                        <option value="{{ auth()->user()->ci }}">Asignarme</option>
+                        @foreach($usuarios as $usuario)
+                            <option value="{{ $usuario->ci }}">{{ $usuario->email }}</option>
+                        @endforeach
+                    </select>
+                    <button type="submit" class="btn-submit">Asignar</button>
+                </div>
+            </div> 
+        @else
+            <div class="asignar-container">
+                <div class="asignar-group">
+                    <button value="{{ auth()->user()->ci }}" name="ci_usuario" type="submit" class="btn-submit">Asignarme</button>
+                </div>
+            </div> 
+        @endif
     @endif
 </form>
 </div>

@@ -78,7 +78,7 @@
                     <button type="button" class="btn btn-light border px-4 py-2 text-dark fw-medium" data-bs-dismiss="modal">
                         Salir
                     </button>
-                    <button type="submit" class="btn btn-primary px-4 py-2 fw-medium" style="background-color: #1a56db; border-color: #1a56db;">
+                    <button type="submit" class="btn btn-primary px-4 py-2 fw-medium" class="pie-modal">
                         Crear
                     </button>
                 </div>
@@ -124,7 +124,7 @@
                     <button type="button" class="btn btn-light border px-4 py-2 text-dark fw-medium" data-bs-dismiss="modal">
                         Salir
                     </button>
-                    <button type="submit" class="btn btn-primary px-4 py-2 fw-medium" style="background-color: #1a56db; border-color: #1a56db;">
+                    <button type="submit" class="btn btn-primary px-4 py-2 fw-medium" class="pie-modal">
                         Actualizar
                     </button>
                 </div>

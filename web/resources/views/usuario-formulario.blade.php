@@ -7,8 +7,8 @@
     {{-- Encabezado superior --}}
     <div class="page-header">
         <div class="breadcrumbs">
-            <span> {{ (auth()->user()->rol === 'Administrador') ? 'Administración' : 'Recovery' }}</span> / <span>Usuarios</span> / <span class="current">{{ isset($usuario) ? 'Editar usuario' : 'nuevo usuario' }}</span>
-            <h1 class="page-title">Gestión de usuarios</h1>
+            <span> {{ (auth()->user()->rol === 'Administrador') ? 'Administración' : 'Recuperación' }}</span> / <span>Usuarios</span> / <span class="current">{{ isset($usuario) ? 'Editar Usuario' : 'Nuevo Usuario' }}</span>
+            <h1 class="page-title">Gestión de Usuarios</h1>
         </div>
         <a href="{{ route('usuarios.index') }}" class="btn-volver">
             <i class="fas fa-arrow-left"></i> Volver Atras

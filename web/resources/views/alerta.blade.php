@@ -87,5 +87,11 @@
                 <label>ULTIMA MODIFICACION</label>
                 <div class="info-value">{{ $alerta->updated_at->format('d M - H:i') }}</div>
             </div>
+            @if (request()->routeIs('auditoria.*'))
+                <div class="info-group">
+                    <label>FECHA ELIMINACIÓN</label>
+                    <div class="info-value">{{ $alerta->deleted_at ? $alerta->deleted_at->format('d M - H:i') : 'No eliminada' }}</div>
+                </div>
+            @endif
         </div>
     </div>

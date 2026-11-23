@@ -23,12 +23,12 @@
     <!-- Cabecera superior y migas de pan -->
     <div class="content-header-top">
         <div class="breadcrumbs">
-            <span> {{ auth()->user()->rol == "Administrador" ? "Administración" : "Operaciones" }} </span> /<span>Alertas</span> / <span class="current">Crear Informe</span>
+            <span> {{ auth()->user()->rol == "Administrador" ? "Administración" : "Operaciones" }} </span> / <span>Alertas</span> / <span class="current">{{ isset($informe) ? 'Editar Informe' : 'Crear Informe' }}</span>
         </div>    
     </div>
     <div class="content-header">
         <div class="page-title-container">
-            <h1 class="page-title">Crear Informe</h1>
+            <h1 class="page-title">{{ isset($informe) ? 'Editar Informe' : 'Crear Informe' }}</h1>
         </div>
         <div class="header-actions">
             <a 

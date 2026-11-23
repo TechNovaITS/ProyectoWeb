@@ -1,17 +1,27 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="device-details-container">
-    <!-- Encabezado de la Sección -->
-    <div class="device-header">
-        <div class="header-titles">
-            <span class="breadcrumb-nav">Administración / Dispositivos / Ver dispositivo</span>
-            <h1>Gestión de dispositivos</h1>
-        </div>
-        <a href="{{ route('dispositivos.index') }}" class="btn-volver-atras">
-            <i class="fa-solid fa-circle-xmark"></i> Volver Atras
-        </a>
+<div class="departments-wrapper">
+    <!-- Cabecera superior y migas de pan -->
+    <div class="content-header-top">
+        <div class="breadcrumbs">
+            <span> {{ auth()->user()->rol == "Administrador" ? "Administración" : "Operaciones" }} </span> / <span>Dispositivos</span> / <span class="current">Ver dispositivo</span>
+        </div>    
     </div>
+    <div class="content-header">
+        <div class="page-title-container">
+            <h1 class="page-title">Ver Dispositivo</h1>
+        </div>
+        <div class="header-actions">
+            <a 
+            class="btn-primary"
+            href="{{  route('dispositivos.index') }}">
+                <i class="fa-solid fa-arrow-left"></i> Volver Atras
+            </a>
+        </div>
+     </div>
+</div>
+
     <!-- Tarjeta de Datos del Dispositivo -->
     <div class="device-info-card">
         <h2>Datos del Servidor</h2>
@@ -59,4 +69,5 @@
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('dispositivo.css') }}">
+<link rel="stylesheet" href="{{ asset('departamentos.css') }}">
 @endpush
